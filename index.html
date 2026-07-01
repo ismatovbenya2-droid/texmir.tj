@@ -1,0 +1,2910 @@
+
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Texmir.tj - Маишӣ техника | Бытовая техника</title>
+    <link rel="icon" type="image/png" href="./favicon.png">
+    <link rel="shortcut icon" type="image/png" href="./favicon.png">
+    <link rel="apple-touch-icon" href="./favicon.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #e63946;
+            --primary-dark: #c1121f;
+            --secondary: #457b9d;
+            --dark: #1d3557;
+            --light: #f1faee;
+            --accent: #a8dadc;
+            --gold: #f4a261;
+            --orange: #e76f51;
+            --bg: #fafbfc;
+            --card-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            --hover-shadow: 0 15px 50px rgba(0,0,0,0.15);
+        }
+
+        body {
+            font-family: 'Rubik', sans-serif;
+            background: var(--bg);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* ===== SPLASH SCREEN ===== */
+        .splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 50%, var(--orange) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+            flex-direction: column;
+        }
+
+        .splash-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .splash-logo {
+            font-size: 4rem;
+            font-weight: 900;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            animation: splashPulse 1.5s ease-in-out infinite;
+            text-align: center;
+        }
+
+        .splash-logo span {
+            color: var(--gold);
+        }
+
+        .splash-subtitle {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.3rem;
+            margin-top: 15px;
+            animation: fadeInUp 1s ease 0.5s both;
+            text-align: center;
+        }
+
+        .splash-loader {
+            margin-top: 40px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .splash-loader div {
+            width: 15px;
+            height: 15px;
+            background: white;
+            border-radius: 50%;
+            animation: bounce 1.4s ease-in-out infinite;
+        }
+
+        .splash-loader div:nth-child(2) { animation-delay: 0.2s; }
+        .splash-loader div:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes splashPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== TOP BAR ===== */
+        .top-bar {
+            background: var(--dark);
+            color: white;
+            padding: 8px 0;
+            font-size: 0.85rem;
+        }
+
+        .top-bar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .top-bar-left span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .lang-switcher {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .lang-btn {
+            background: rgba(255,255,255,0.15);
+            border: 2px solid transparent;
+            color: white;
+            padding: 4px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-family: 'Rubik', sans-serif;
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            background: var(--primary);
+            border-color: white;
+            transform: scale(1.05);
+        }
+
+        .lang-flag {
+            width: 22px;
+            height: 16px;
+            border-radius: 3px;
+            display: inline-block;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .flag-tj {
+            background: linear-gradient(to bottom, #cc0000 33%, #fff 33%, #fff 66%, #006600 66%);
+        }
+
+        .flag-ru {
+            background: linear-gradient(to bottom, #fff 33%, #0039a6 33%, #0039a6 66%, #d52b1e 66%);
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: white;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-main {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, var(--primary), var(--orange));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+            font-weight: 900;
+            box-shadow: 0 4px 15px rgba(230,57,70,0.3);
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--dark);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1;
+        }
+
+        .logo-text p {
+            font-size: 0.75rem;
+            color: #777;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 500px;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 14px 50px 14px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-family: 'Rubik', sans-serif;
+            background: #f8f9fa;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(230,57,70,0.1);
+        }
+
+        .search-bar button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            bottom: 5px;
+            background: var(--primary);
+            border: none;
+            color: white;
+            width: 42px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background 0.3s;
+        }
+
+        .search-bar button:hover {
+            background: var(--primary-dark);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #555;
+            font-size: 0.75rem;
+            transition: color 0.3s;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .header-action-btn:hover {
+            color: var(--primary);
+        }
+
+        .header-action-btn .icon {
+            font-size: 1.5rem;
+            margin-bottom: 2px;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--primary);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--dark);
+            cursor: pointer;
+        }
+
+        /* ===== NAVIGATION ===== */
+        nav {
+            background: var(--dark);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            overflow-x: auto;
+        }
+
+        .nav-links li a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 15px 22px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-links li a:hover, .nav-links li a.active {
+            background: rgba(255,255,255,0.1);
+            border-bottom-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* ===== HERO BANNER ===== */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--dark) 0%, #2a4a7f 100%);
+            min-height: 550px;
+        }
+
+        .hero-slider {
+            position: relative;
+            min-height: 550px;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            max-width: 600px;
+            padding: 40px 0;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 6px 20px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero-content h2 {
+            font-size: 3.2rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .hero-content h2 span {
+            color: var(--gold);
+        }
+
+        .hero-content p {
+            font-size: 1.15rem;
+            opacity: 0.9;
+            margin-bottom: 35px;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            font-family: 'Rubik', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 5px 20px rgba(230,57,70,0.4);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(230,57,70,0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255,255,255,0.5);
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--dark);
+            border-color: white;
+            transform: translateY(-3px);
+        }
+
+        .hero-image {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        .hero-image img {
+            max-width: 450px;
+            max-height: 400px;
+            object-fit: contain;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-dots {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 5;
+        }
+
+        .hero-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.4);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+
+        .hero-dot.active {
+            background: var(--gold);
+            transform: scale(1.3);
+        }
+
+        /* ===== ADVANTAGES ===== */
+        .advantages {
+            padding: 30px 0;
+            background: white;
+            border-bottom: 1px solid #eee;
+        }
+
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .advantage-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            border-radius: 15px;
+            transition: all 0.3s;
+        }
+
+        .advantage-item:hover {
+            background: var(--light);
+            transform: translateY(-3px);
+        }
+
+        .advantage-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--orange));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            color: white;
+        }
+
+        .advantage-text h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 3px;
+        }
+
+        .advantage-text p {
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        /* ===== SECTION STYLES ===== */
+        .section {
+            padding: 70px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--dark);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: #777;
+        }
+
+        .section-line {
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--gold));
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        /* ===== CATEGORIES ===== */
+        .categories-section {
+            background: white;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 20px;
+        }
+
+        .category-card {
+            background: var(--bg);
+            border-radius: 20px;
+            padding: 30px 15px;
+            text-align: center;
+            transition: all 0.4s;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--dark);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--orange));
+            opacity: 0;
+            transition: opacity 0.4s;
+            border-radius: 20px;
+        }
+
+        .category-card:hover::before {
+            opacity: 1;
+        }
+
+        .category-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .category-card:hover .category-icon,
+        .category-card:hover h3,
+        .category-card:hover p {
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            transition: all 0.4s;
+        }
+
+        .category-card h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            transition: color 0.4s;
+        }
+
+        .category-card p {
+            font-size: 0.8rem;
+            color: #999;
+            transition: color 0.4s;
+        }
+
+        /* ===== PRODUCTS ===== */
+        .products-section {
+            background: var(--bg);
+        }
+
+        .product-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .product-tab {
+            padding: 10px 28px;
+            border: 2px solid #ddd;
+            border-radius: 50px;
+            background: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-family: 'Rubik', sans-serif;
+            color: #555;
+        }
+
+        .product-tab:hover, .product-tab.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            z-index: 2;
+            text-transform: uppercase;
+        }
+
+        .badge-sale {
+            background: var(--primary);
+            color: white;
+        }
+
+        .badge-new {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .badge-hot {
+            background: var(--orange);
+            color: white;
+        }
+
+        .product-wishlist {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 38px;
+            height: 38px;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            z-index: 2;
+            color: #ccc;
+        }
+
+        .product-wishlist:hover, .product-wishlist.liked {
+            color: var(--primary);
+            transform: scale(1.15);
+        }
+
+        .product-image {
+            height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: #f8f9fa;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.5s;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.08);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-category-label {
+            font-size: 0.75rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .product-info h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 12px;
+        }
+
+        .stars {
+            color: #ffc107;
+            font-size: 0.85rem;
+        }
+
+        .rating-count {
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .current-price {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .old-price {
+            font-size: 1rem;
+            color: #bbb;
+            text-decoration: line-through;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-cart {
+            flex: 1;
+            padding: 12px 15px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Rubik', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-cart:hover {
+            background: var(--primary-dark);
+            transform: scale(1.02);
+        }
+
+        .btn-quick-view {
+            width: 45px;
+            height: 45px;
+            background: var(--bg);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #777;
+        }
+
+        .btn-quick-view:hover {
+            background: var(--dark);
+            color: white;
+        }
+
+        /* ===== CATEGORY PAGE (hidden by default) ===== */
+        .category-page {
+            display: none;
+            padding: 40px 0 70px;
+            background: var(--bg);
+        }
+
+        .category-page.active {
+            display: block;
+        }
+
+        .category-page-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .back-btn {
+            padding: 10px 25px;
+            background: var(--dark);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            font-family: 'Rubik', sans-serif;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+        }
+
+        .category-page-header h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--dark);
+        }
+
+        .category-products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        /* ===== BANNER ===== */
+        .promo-banner {
+            padding: 70px 0;
+            background: linear-gradient(135deg, var(--dark), #2a4a7f);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .promo-banner::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(230,57,70,0.3), transparent);
+            top: -100px;
+            right: -100px;
+            border-radius: 50%;
+        }
+
+        .promo-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .promo-text {
+            color: white;
+            flex: 1;
+        }
+
+        .promo-text h2 {
+            font-size: 2.8rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            line-height: 1.1;
+        }
+
+        .promo-text h2 span {
+            color: var(--gold);
+        }
+
+        .promo-text p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .promo-timer {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .timer-box {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 15px 20px;
+            border-radius: 15px;
+            text-align: center;
+            min-width: 75px;
+        }
+
+        .timer-box .number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--gold);
+            display: block;
+        }
+
+        .timer-box .label {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.7);
+            text-transform: uppercase;
+        }
+
+        /* ===== BRANDS ===== */
+        .brands-section {
+            padding: 60px 0;
+            background: white;
+        }
+
+        .brands-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 25px;
+            align-items: center;
+        }
+
+        .brand-item {
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            border: 2px solid #f0f0f0;
+            transition: all 0.3s;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #aaa;
+            min-height: 90px;
+        }
+
+        .brand-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow);
+            color: var(--dark);
+        }
+
+        /* ===== POPULAR PRODUCTS ===== */
+        .popular-section {
+            background: var(--bg);
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials-section {
+            background: white;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: var(--bg);
+            border-radius: 20px;
+            padding: 35px;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow);
+        }
+
+        .testimonial-quote {
+            font-size: 3rem;
+            color: var(--primary);
+            opacity: 0.3;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .testimonial-text {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--gold));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .author-info h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .author-info p {
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        /* ===== WHY CHOOSE US ===== */
+        .why-us-section {
+            background: linear-gradient(135deg, var(--dark), #2a4a7f);
+            padding: 80px 0;
+            color: white;
+        }
+
+        .why-us-section .section-header h2,
+        .why-us-section .section-header p {
+            color: white;
+        }
+
+        .why-us-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .why-us-card {
+            text-align: center;
+            padding: 40px 25px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .why-us-card:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-8px);
+        }
+
+        .why-us-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .why-us-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .why-us-card p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* ===== NEWSLETTER ===== */
+        .newsletter-section {
+            padding: 70px 0;
+            background: var(--light);
+        }
+
+        .newsletter-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter-content h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .newsletter-content p {
+            color: #777;
+            margin-bottom: 30px;
+            font-size: 1.05rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 16px 25px;
+            border: 2px solid #ddd;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-family: 'Rubik', sans-serif;
+            transition: border-color 0.3s;
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .newsletter-form button {
+            padding: 16px 35px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Rubik', sans-serif;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .newsletter-form button:hover {
+            background: var(--primary-dark);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #0d1b2a;
+            color: white;
+            padding: 70px 0 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-about .logo {
+            margin-bottom: 20px;
+        }
+
+        .footer-about .logo-icon {
+            background: var(--primary);
+        }
+
+        .footer-about .logo-text h1 {
+            color: white;
+        }
+
+        .footer-about p {
+            color: rgba(255,255,255,0.6);
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 12px;
+        }
+
+        .footer-social a {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+        }
+
+        .footer-social a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-col h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--gold);
+            padding-left: 8px;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .footer-contact-item .icon {
+            font-size: 1.2rem;
+            color: var(--gold);
+            margin-top: 3px;
+        }
+
+        .footer-contact-item p {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .footer-contact-item a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-contact-item a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 25px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .footer-bottom p {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 10px;
+        }
+
+        .payment-methods span {
+            background: rgba(255,255,255,0.1);
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* ===== WHATSAPP FLOAT ===== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+        }
+
+        .whatsapp-float a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 65px;
+            height: 65px;
+            background: #25d366;
+            border-radius: 50%;
+            color: white;
+            font-size: 2rem;
+            text-decoration: none;
+            box-shadow: 0 5px 25px rgba(37,211,102,0.4);
+            transition: all 0.3s;
+            animation: whatsappPulse 2s infinite;
+        }
+
+        .whatsapp-float a:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes whatsappPulse {
+            0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.5); }
+            70% { box-shadow: 0 0 0 15px rgba(37,211,102,0); }
+            100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+        }
+
+        /* ===== SCROLL TO TOP ===== */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--dark);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            transition: all 0.3s;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.2);
+        }
+
+        .scroll-top.visible {
+            display: flex;
+        }
+
+        .scroll-top:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* ===== CART DRAWER ===== */
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 9998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .cart-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .cart-drawer {
+            position: fixed;
+            top: 0;
+            right: -450px;
+            width: 420px;
+            max-width: 90vw;
+            height: 100%;
+            background: white;
+            z-index: 9999;
+            transition: right 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            box-shadow: -5px 0 30px rgba(0,0,0,0.1);
+        }
+
+        .cart-drawer.active {
+            right: 0;
+        }
+
+        .cart-drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-drawer-header h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .cart-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.3s;
+        }
+
+        .cart-close:hover {
+            color: var(--primary);
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 2rem;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-info h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .cart-item-info .price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .cart-item-qty {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .cart-item-qty button {
+            width: 28px;
+            height: 28px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .cart-item-qty button:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .cart-item-remove {
+            background: none;
+            border: none;
+            color: #ccc;
+            cursor: pointer;
+            font-size: 1.1rem;
+            align-self: flex-start;
+            transition: color 0.3s;
+        }
+
+        .cart-item-remove:hover {
+            color: var(--primary);
+        }
+
+        .cart-footer {
+            padding: 20px 25px;
+            border-top: 1px solid #eee;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .cart-total span:first-child {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .cart-total span:last-child {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .cart-checkout-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Rubik', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .cart-checkout-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .cart-empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .cart-empty .icon {
+            font-size: 4rem;
+            margin-bottom: 15px;
+        }
+
+        /* ===== MOBILE MENU ===== */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 280px;
+            height: 100%;
+            background: white;
+            z-index: 10000;
+            transition: left 0.3s ease;
+            overflow-y: auto;
+            box-shadow: 5px 0 30px rgba(0,0,0,0.1);
+        }
+
+        .mobile-nav.active {
+            left: 0;
+        }
+
+        .mobile-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            background: var(--dark);
+            color: white;
+        }
+
+        .mobile-nav-header h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .mobile-nav-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+            padding: 10px 0;
+        }
+
+        .mobile-nav-links li a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 25px;
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .mobile-nav-links li a:hover {
+            background: var(--light);
+            color: var(--primary);
+            padding-left: 35px;
+        }
+
+        .mobile-nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .mobile-nav-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ===== TOAST ===== */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--dark);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            z-index: 99999;
+            transition: transform 0.4s ease;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .products-grid, .category-products-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .categories-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .why-us-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .brands-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .hero-image img {
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .splash-logo {
+                font-size: 2.5rem;
+            }
+
+            .splash-subtitle {
+                font-size: 1rem;
+                padding: 0 20px;
+            }
+
+            .hero {
+                min-height: 400px;
+            }
+
+            .hero-slider {
+                min-height: 400px;
+            }
+
+            .hero-content h2 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .hero-image {
+                display: none;
+            }
+
+            .products-grid, .category-products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .categories-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 12px;
+            }
+
+            .advantages-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .promo-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .promo-text h2 {
+                font-size: 2rem;
+            }
+
+            .promo-timer {
+                justify-content: center;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .header-main {
+                flex-wrap: wrap;
+            }
+
+            .search-bar {
+                order: 3;
+                min-width: 100%;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .brands-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 15px;
+            }
+
+            .why-us-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .top-bar .container {
+                flex-direction: column;
+                text-align: center;
+                gap: 8px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .products-grid, .category-products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .advantages-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .brands-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero-content h2 {
+                font-size: 1.6rem;
+            }
+
+            .logo-text h1 {
+                font-size: 1.4rem;
+            }
+
+            .section {
+                padding: 50px 0;
+            }
+
+            .product-info h3 {
+                font-size: 0.9rem;
+            }
+
+            .current-price {
+                font-size: 1.2rem;
+            }
+
+            .category-card {
+                padding: 20px 10px;
+            }
+
+            .category-icon {
+                font-size: 2.2rem;
+            }
+
+            .category-card h3 {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SPLASH SCREEN -->
+    <div class="splash-screen" id="splashScreen">
+        <div class="splash-logo">Texmir<span>.tj</span></div>
+        <div class="splash-subtitle" id="splashText">Хуш омадед ба Texmir.tj!</div>
+        <div class="splash-loader">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+
+    <!-- WHATSAPP FLOAT -->
+    <div class="whatsapp-float">
+        <a href="https://wa.me/992119002301" target="_blank" title="WhatsApp">💬</a>
+    </div>
+
+    <!-- SCROLL TO TOP -->
+    <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆</button>
+
+    <!-- CART OVERLAY -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+    <!-- CART DRAWER -->
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-drawer-header">
+            <h3 id="cartTitle">🛒 Сабад</h3>
+            <button class="cart-close" onclick="toggleCart()">✕</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="cart-empty">
+                <div class="icon">🛒</div>
+                <p id="cartEmptyText">Сабад холӣ аст</p>
+            </div>
+        </div>
+        <div class="cart-footer" id="cartFooter" style="display:none;">
+            <div class="cart-total">
+                <span id="totalLabel">Ҳамагӣ:</span>
+                <span id="cartTotal">0 сомонӣ</span>
+            </div>
+            <button class="cart-checkout-btn" onclick="checkout()" id="checkoutBtn">📱 Фармоиш тавассути WhatsApp</button>
+        </div>
+    </div>
+
+    <!-- MOBILE NAV OVERLAY -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="toggleMobileNav()"></div>
+
+    <!-- MOBILE NAV -->
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-header">
+            <h3>📋 Меню</h3>
+            <button class="mobile-nav-close" onclick="toggleMobileNav()">✕</button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="#" onclick="showHome();toggleMobileNav()">🏠 <span data-tj="Асосӣ" data-ru="Главная">Асосӣ</span></a></li>
+            <li><a href="#" onclick="showCategory('kitchen');toggleMobileNav()">🍳 <span data-tj="Ошхона" data-ru="Кухня">Ошхона</span></a></li>
+            <li><a href="#" onclick="showCategory('laundry');toggleMobileNav()">👕 <span data-tj="Ҷомашӯӣ" data-ru="Стирка">Ҷомашӯӣ</span></a></li>
+            <li><a href="#" onclick="showCategory('climate');toggleMobileNav()">❄️ <span data-tj="Иқлим" data-ru="Климат">Иқлим</span></a></li>
+            <li><a href="#" onclick="showCategory('cleaning');toggleMobileNav()">🧹 <span data-tj="Тозакунӣ" data-ru="Уборка">Тозакунӣ</span></a></li>
+            <li><a href="#" onclick="showCategory('beauty');toggleMobileNav()">💇 <span data-tj="Зебоӣ" data-ru="Красота">Зебоӣ</span></a></li>
+            <li><a href="#" onclick="showCategory('tv');toggleMobileNav()">📺 <span data-tj="ТВ ва Аудио" data-ru="ТВ и Аудио">ТВ ва Аудио</span></a></li>
+            <li><a href="#contacts" onclick="toggleMobileNav()">📞 <span data-tj="Тамос" data-ru="Контакты">Тамос</span></a></li>
+        </ul>
+    </div>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-left">
+                <span>📍 <span data-tj="Тоҷикистон, Душанбе" data-ru="Таджикистан, Душанбе">Тоҷикистон, Душанбе</span></span>
+                <span>📞 +992 119002301</span>
+                <span>🕐 <span data-tj="Пн-Шб: 9:00 - 20:00" data-ru="Пн-Сб: 9:00 - 20:00">Дш-Шб: 9:00 - 20:00</span></span>
+            </div>
+            <div class="lang-switcher">
+                <button class="lang-btn active" onclick="setLang('tj')" id="langTJ">
+                    <span class="lang-flag flag-tj"></span> TJ
+                </button>
+                <button class="lang-btn" onclick="setLang('ru')" id="langRU">
+                    <span class="lang-flag flag-ru"></span> RU
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="container">
+            <div class="header-main">
+                <button class="mobile-menu-btn" onclick="toggleMobileNav()">☰</button>
+                <a href="#" class="logo" onclick="showHome()">
+                    <div class="logo-icon">T</div>
+                    <div class="logo-text">
+                        <h1>Texmir<span style="color:var(--primary)">.tj</span></h1>
+                        <p data-tj="Техникаи маишӣ" data-ru="Бытовая техника">Техникаи маишӣ</p>
+                    </div>
+                </a>
+                <div class="search-bar">
+                    <input type="text" id="searchInput" data-placeholder-tj="Ҷустуҷӯ кунед..." data-placeholder-ru="Поиск товаров..." placeholder="Ҷустуҷӯ кунед..." onkeyup="searchProducts(this.value)">
+                    <button>🔍</button>
+                </div>
+                <div class="header-actions">
+                    <div class="header-action-btn" onclick="toggleCart()">
+                        <span class="icon">🛒</span>
+                        <span class="cart-count" id="cartCount">0</span>
+                        <span data-tj="Сабад" data-ru="Корзина">Сабад</span>
+                    </div>
+                    <a href="https://wa.me/992119002301" target="_blank" class="header-action-btn">
+                        <span class="icon">📞</span>
+                        <span data-tj="Тамос" data-ru="Контакты">Тамос</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="container">
+            <ul class="nav-links">
+                <li><a href="#" class="active" onclick="showHome()">🏠 <span data-tj="Асосӣ" data-ru="Главная">Асосӣ</span></a></li>
+                <li><a href="#" onclick="showCategory('kitchen')">🍳 <span data-tj="Ошхона" data-ru="Кухня">Ошхона</span></a></li>
+                <li><a href="#" onclick="showCategory('laundry')">👕 <span data-tj="Ҷомашӯӣ" data-ru="Стирка">Ҷомашӯӣ</span></a></li>
+                <li><a href="#" onclick="showCategory('climate')">❄️ <span data-tj="Иқлим" data-ru="Климат">Иқлим</span></a></li>
+                <li><a href="#" onclick="showCategory('cleaning')">🧹 <span data-tj="Тозакунӣ" data-ru="Уборка">Тозакунӣ</span></a></li>
+                <li><a href="#" onclick="showCategory('beauty')">💇 <span data-tj="Зебоӣ" data-ru="Красота">Зебоӣ</span></a></li>
+                <li><a href="#" onclick="showCategory('tv')">📺 <span data-tj="ТВ ва Аудио" data-ru="ТВ и Аудио">ТВ ва Аудио</span></a></li>
+                <li><a href="#contacts">📞 <span data-tj="Тамос" data-ru="Контакты">Тамос</span></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main id="mainContent">
+
+        <!-- HERO -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-slider">
+                    <div class="hero-slide active">
+                        <div class="hero-content">
+                            <span class="hero-badge" data-tj="🔥 Тахфифот" data-ru="🔥 Скидки">🔥 Тахфифот</span>
+                            <h2 data-tj="Техникаи <span>навтарин</span> барои хонаи шумо" data-ru="Новейшая <span>техника</span> для вашего дома">Техникаи <span>навтарин</span> барои хонаи шумо</h2>
+                            <p data-tj="Маҳсулоти баландсифат аз брендҳои машҳури ҷаҳон бо нархи арзон дар Душанбе!" data-ru="Качественные товары от мировых брендов по доступным ценам в Душанбе!">Маҳсулоти баландсифат аз брендҳои машҳури ҷаҳон бо нархи арзон дар Душанбе!</p>
+                            <div class="hero-buttons">
+                                <a href="#products" class="btn btn-primary" data-tj="🛒 Хариди кунед" data-ru="🛒 Купить сейчас">🛒 Хариди кунед</a>
+                                <a href="https://wa.me/992119002301" target="_blank" class="btn btn-outline" data-tj="📞 Маслиҳат" data-ru="📞 Консультация">📞 Маслиҳат</a>
+                            </div>
+                        </div>
+                        <div class="hero-image">
+                            <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&h=400&fit=crop" alt="Kitchen Appliances">
+                        </div>
+                    </div>
+                    <div class="hero-slide">
+                        <div class="hero-content">
+                            <span class="hero-badge" data-tj="⭐ Нав" data-ru="⭐ Новинки">⭐ Нав</span>
+                            <h2 data-tj="Кондитсионерҳо бо <span>нархи арзон</span>" data-ru="Кондиционеры по <span>низким ценам</span>">Кондитсионерҳо бо <span>нархи арзон</span></h2>
+                            <p data-tj="Кондитсионерҳои сердарнавис барои тобистони гарм. Насб ройгон!" data-ru="Энергосберегающие кондиционеры для жаркого лета. Установка бесплатно!">Кондитсионерҳои сердарнавис барои тобистони гарм. Насб ройгон!</p>
+                            <div class="hero-buttons">
+                                <a href="#" onclick="showCategory('climate')" class="btn btn-primary" data-tj="❄️ Дидан" data-ru="❄️ Смотреть">❄️ Дидан</a>
+                            </div>
+                        </div>
+                        <div class="hero-image">
+                            <img src="https://images.unsplash.com/photo-1585338107529-13afc5f02586?w=500&h=400&fit=crop" alt="Air Conditioner">
+                        </div>
+                    </div>
+                    <div class="hero-slide">
+                        <div class="hero-content">
+                            <span class="hero-badge" data-tj="🎉 Махсус" data-ru="🎉 Акция">🎉 Махсус</span>
+                            <h2 data-tj="Мошинҳои <span>ҷомашӯӣ</span> аз 2500 сомонӣ" data-ru="Стиральные <span>машины</span> от 2500 сомони">Мошинҳои <span>ҷомашӯӣ</span> аз 2500 сомонӣ</h2>
+                            <p data-tj="Мошинҳои ҷомашӯии замонавӣ бо кафолат. Расонидан ба хона ройгон!" data-ru="Современные стиральные машины с гарантией. Доставка на дом бесплатно!">Мошинҳои ҷомашӯии замонавӣ бо кафолат. Расонидан ба хона ройгон!</p>
+                            <div class="hero-buttons">
+                                <a href="#" onclick="showCategory('laundry')" class="btn btn-primary" data-tj="👕 Интихоб кунед" data-ru="👕 Выбрать">👕 Интихоб кунед</a>
+                            </div>
+                        </div>
+                        <div class="hero-image">
+                            <img src="https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?w=500&h=400&fit=crop" alt="Washing Machine">
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-dots">
+                    <button class="hero-dot active" onclick="goToSlide(0)"></button>
+                    <button class="hero-dot" onclick="goToSlide(1)"></button>
+                    <button class="hero-dot" onclick="goToSlide(2)"></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ADVANTAGES -->
+        <section class="advantages">
+            <div class="container">
+                <div class="advantages-grid">
+                    <div class="advantage-item">
+                        <div class="advantage-icon">🚚</div>
+                        <div class="advantage-text">
+                            <h4 data-tj="Расонидани ройгон" data-ru="Бесплатная доставка">Расонидани ройгон</h4>
+                            <p data-tj="Дар саросари Душанбе" data-ru="По всему Душанбе">Дар саросари Душанбе</p>
+                        </div>
+                    </div>
+                    <div class="advantage-item">
+                        <div class="advantage-icon">🛡️</div>
+                        <div class="advantage-text">
+                            <h4 data-tj="Кафолати 2 сол" data-ru="Гарантия 2 года">Кафолати 2 сол</h4>
+                            <p data-tj="Кафолати расмӣ" data-ru="Официальная гарантия">Кафолати расмӣ</p>
+                        </div>
+                    </div>
+                    <div class="advantage-item">
+                        <div class="advantage-icon">💳</div>
+                        <div class="advantage-text">
+                            <h4 data-tj="Қарзи бефоиз" data-ru="Рассрочка 0%">Қарзи бефоиз</h4>
+                            <p data-tj="То 12 моҳ" data-ru="До 12 месяцев">То 12 моҳ</p>
+                        </div>
+                    </div>
+                    <div class="advantage-item">
+                        <div class="advantage-icon">🔄</div>
+                        <div class="advantage-text">
+                            <h4 data-tj="Баргардонидан" data-ru="Возврат товара">Баргардонидан</h4>
+                            <p data-tj="Дар муддати 14 рӯз" data-ru="В течение 14 дней">Дар муддати 14 рӯз</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATEGORIES -->
+        <section class="section categories-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 data-tj="📂 Категорияҳо" data-ru="📂 Категории">📂 Категорияҳо</h2>
+                    <p data-tj="Ҳама гуна техникаи маишӣ барои хонаи шумо" data-ru="Вся бытовая техника для вашего дома">Ҳама гуна техникаи маишӣ барои хонаи шумо</p>
+                    <div class="section-line"></div>
+                </div>
+                <div class="categories-grid">
+                    <div class="category-card" onclick="showCategory('kitchen')">
+                        <div class="category-icon">🍳</div>
+                        <h3 data-tj="Ошхона" data-ru="Кухня">Ошхона</h3>
+                        <p data-tj="24 маҳсулот" data-ru="24 товара">24 маҳсулот</p>
+                    </div>
+                    <div class="category-card" onclick="showCategory('laundry')">
+                        <div class="category-icon">👕</div>
+                        <h3 data-tj="Ҷомашӯӣ" data-ru="Стирка">Ҷомашӯӣ</h3>
+                        <p data-tj="12 маҳсулот" data-ru="12 товаров">12 маҳсулот</p>
+                    </div>
+                    <div class="category-card" onclick="showCategory('climate')">
+                        <div class="category-icon">❄️</div>
+                        <h3 data-tj="Иқлим" data-ru="Климат">Иқлим</h3>
+                        <p data-tj="15 маҳсулот" data-ru="15 товаров">15 маҳсулот</p>
+                    </div>
+                    <div class="category-card" onclick="showCategory('cleaning')">
+                        <div class="category-icon">🧹</div>
+                        <h3 data-tj="Тозакунӣ" data-ru="Уборка">Тозакунӣ</h3>
+                        <p data-tj="8 маҳсулот" data-ru="8 товаров">8 маҳсулот</p>
+                    </div>
+                    <div class="category-card" onclick="showCategory('beauty')">
+                        <div class="category-icon">💇</div>
+                        <h3 data-tj="Зебоӣ" data-ru="Красота">Зебоӣ</h3>
+                        <p data-tj="10 маҳсулот" data-ru="10 товаров">10 маҳсулот</p>
+                    </div>
+                    <div class="category-card" onclick="showCategory('tv')">
+                        <div class="category-icon">📺</div>
+                        <h3 data-tj="ТВ ва Аудио" data-ru="ТВ и Аудио">ТВ ва Аудио</h3>
+                        <p data-tj="18 маҳсулот" data-ru="18 товаров">18 маҳсулот</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRODUCTS -->
+        <section class="section products-section" id="products">
+            <div class="container">
+                <div class="section-header">
+                    <h2 data-tj="🛍️ Маҳсулоти маъмул" data-ru="🛍️ Популярные товары">🛍️ Маҳсулоти маъмул</h2>
+                    <p data-tj="Беҳтарин техника барои хонаи шумо" data-ru="Лучшая техника для вашего дома">Беҳтарин техника барои хонаи шумо</p>
+                    <div class="section-line"></div>
+                </div>
+                <div class="product-tabs">
+                    <button class="product-tab active" onclick="filterProducts('all', this)" data-tj="Ҳама" data-ru="Все">Ҳама</button>
+                    <button class="product-tab" onclick="filterProducts('kitchen', this)" data-tj="Ошхона" data-ru="Кухня">Ошхона</button>
+                    <button class="product-tab" onclick="filterProducts('laundry', this)" data-tj="Ҷомашӯӣ" data-ru="Стирка">Ҷомашӯӣ</button>
+                    <button class="product-tab" onclick="filterProducts('climate', this)" data-tj="Иқлим" data-ru="Климат">Иқлим</button>
+                    <button class="product-tab" onclick="filterProducts('tv', this)" data-tj="ТВ" data-ru="ТВ">ТВ</button>
+                </div>
+                <div class="products-grid" id="productsGrid">
+                    <!-- Products will be rendered by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- PROMO BANNER -->
+        <section class="promo-banner">
+            <div class="container">
+                <div class="promo-content">
+                    <div class="promo-text">
+                        <h2 data-tj="Тахфифоти <span>бузург!</span> То 40%" data-ru="Большие <span>скидки!</span> До 40%">Тахфифоти <span>бузург!</span> То 40%</h2>
+                        <p data-tj="Фурсати бузург! Техникаи маишии аз ҳама беҳтаринро бо тахфифи 40% харед. Пешниҳоди маҳдуд!" data-ru="Отличная возможность! Покупайте лучшую бытовую технику со скидкой до 40%. Предложение ограничено!">Фурсати бузург! Техникаи маишии аз ҳама беҳтаринро бо тахфифи 40% харед. Пешниҳоди маҳдуд!</p>
+                        <a href="https://wa.me/992119002301" target="_blank" class="btn btn-primary" data-tj="📱 Ҳозир фармоиш диҳед" data-ru="📱 Заказать сейчас">📱 Ҳозир фармоиш диҳед</a>
+                        <div class="promo-timer">
+                            <div class="timer-box">
+                                <span class="number" id="timerDays">15</span>
+                                <span class="label" data-tj="Рӯз" data-ru="Дней">Рӯз</span>
+                            </div>
+                            <div class="timer-box">
+                                <span class="number" id="timerHours">08</span>
+                                <span class="label" data-tj="Соат" data-ru="Часов">Соат</span>
+                            </div>
+                            <div class="timer-box">
+                                <span class="number" id="timerMins">45</span>
+                                <span class="label" data-tj="Дақ" data-ru="Мин">Дақ</span>
+                            </div>
+                            <div class="timer-box">
+                                <span class="number" id="timerSecs">22</span>
+                                <span class="label" data-tj="Сон" data-ru="Сек">Сон</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MORE PRODUCTS -->
+        <section class="section popular-section" id="moreProducts">
+            <div class="container">
+                <div class="section-header">
+                    <h2 data-tj="⭐ Маҳсулоти нав" data-ru="⭐ Новые товары">⭐ Маҳсулоти нав</h2>
+                    <p data-tj="Навтарин техника дар мағозаи мо" data-ru="Новейшая техника в нашем магазине">Навтарин техника дар мағозаи мо</p>
+                    <div class="section-line"></div>
+                </div>
+                <div class="products-grid" id="newProductsGrid">
+                    <!-- Rendered by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- BRANDS -->
+        <section class="brands-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 data-tj="🏭 Брендҳои мо" data-ru="🏭 Наши бренды">🏭 Брендҳои мо</h2>
+                    <p data-tj="Мо бо беҳтарин брендҳои ҷаҳон кор мекунем" data-ru="Мы работаем с лучшими мировыми брендами">Мо бо беҳтарин брендҳои ҷаҳон кор мекунем</p>
+                    <div class="section-line"></div>
+                </div>
+                <div class="brands-grid">
+                    <div class="brand-item">Samsung</div>
+                    <div class="brand-item">LG</div>
+                    <div class="brand-item">Bosch</div>
+                    <div class="brand-item">Philips</div>
+                    <div class="brand-item">Xiaomi</div>
+                    <div class="brand-item">Haier</div>
+                    <div class="brand-item">Midea</div>
+                    <div class="brand-item">Artel</div>
+                    <div class="brand-item">Beko</div>
+                    <div class="brand-item">Dyson</div>
+                    <div class="brand-item">Tefal</div>
+                    <div class="brand-item">Electrolux</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIALS -->
+        <section class="section testimonials-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 data-tj="💬 Фикри муштариён" data-ru="💬 Отзывы клиентов">💬 Фикри муштариён</h2>
+                    <p data-tj="Муштариёни мо чӣ мегӯянд" data-ru="Что говорят наши клиенты">Муштариёни мо чӣ мегӯянд</p>
+                    <div class="section-line"></div>
+                </div>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text" data-tj="Ман аз Texmir.tj яхчол харидам. Сифаташ олист ва хизматрасонӣ хеле хуб аст. Расонидан ройгон буд. Ташаккур!" data-ru="Я купил холодильник в Texmir.tj. Качество отличное и обслуживание очень хорошее. Доставка была бесплатной. Спасибо!">Ман аз Texmir.tj яхчол харидам. Сифаташ олист ва хизматрасонӣ хеле хуб аст. Расонидан ройгон буд. Ташаккур!</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">Ф</div>
+                            <div class="author-info">
+                                <h4>Фирдавс Раҳимов</h4>
+                                <p>⭐⭐⭐⭐⭐</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text" data-tj="Мошини ҷомашӯии LG-ро аз ин ҷо харидам. Нарх хеле муносиб буд ва кафолат ҳам доранд. Ба ҳама тавсия медиҳам!" data-ru="Купила стиральную машину LG здесь. Цена была очень хорошей и есть гарантия. Рекомендую всем!">Мошини ҷомашӯии LG-ро аз ин ҷо харидам. Нарх хеле муносиб буд ва кафолат ҳам доранд. Ба ҳама тавсия медиҳам!</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">М</div>
+                            <div class="author-info">
+                                <h4>Мадина Сафарова</h4>
+                                <p>⭐⭐⭐⭐⭐</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text" data-tj="Кондитсионер Samsung харидам. Насб кардан ройгон буд ва кормандон хеле хушмуомила буданд. Раҳмат Texmir.tj!" data-ru="Купил кондиционер Samsung. Установка была бесплатной и сотрудники были очень вежливы. Спасибо Texmir.tj!">Кондитсионер Samsung харидам. Насб кардан ройгон буд ва кормандон хеле хушмуомила буданд. Раҳмат Texmir.tj!</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">А</div>
+                            <div class="author-info">
+                                <h4>Абдулло Каримов</h4>
+                                <p>⭐⭐⭐⭐⭐</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- WHY CHOOSE US -->
+        <section class="why-us-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 data-tj="🏆 Чаро моро интихоб кунед?" data-ru="🏆 Почему выбирают нас?">🏆 Чаро моро интихоб кунед?</h2>
+                    <p data-tj="Сабабҳое, ки Texmir.tj беҳтарин аст" data-ru="Причины, почему Texmir.tj лучший">Сабабҳое, ки Texmir.tj беҳтарин аст</p>
+                    <div class="section-line"></div>
+                </div>
+                <div class="why-us-grid">
+                    <div class="why-us-card">
+                        <div class="why-us-icon">✅</div>
+                        <h3 data-tj="Маҳсулоти аслӣ" data-ru="Оригинальные товары">Маҳсулоти аслӣ</h3>
+                        <p data-tj="Ҳамаи маҳсулотҳо аслӣ ва бо сертификат мебошанд" data-ru="Все товары оригинальные и сертифицированные">Ҳамаи маҳсулотҳо аслӣ ва бо сертификат мебошанд</p>
+                    </div>
+                    <div class="why-us-card">
+                        <div class="why-us-icon">💰</div>
+                        <h3 data-tj="Нархи арзон" data-ru="Низкие цены">Нархи арзон</h3>
+                        <p data-tj="Мо беҳтарин нархро дар бозор пешниҳод мекунем" data-ru="Мы предлагаем лучшие цены на рынке">Мо беҳтарин нархро дар бозор пешниҳод мекунем</p>
+                    </div>
+                    <div class="why-us-card">
+                        <div class="why-us-icon">🔧</div>
+                        <h3 data-tj="Хизмати баъдифурӯш" data-ru="Послепродажное обслуживание">Хизмати баъдифурӯш</h3>
+                        <p data-tj="Таъмир ва хизматрасонии касбӣ баъд аз хариди шумо" data-ru="Профессиональный ремонт и обслуживание после покупки">Таъмир ва хизматрасонии касбӣ баъд аз хариди шумо</p>
+                    </div>
+                    <div class="why-us-card">
+                        <div class="why-us-icon">🤝</div>
+                        <h3 data-tj="Муштарии доимӣ" data-ru="Постоянные клиенты">Муштарии доимӣ</h3>
+                        <p data-tj="Беш аз 5000 муштарии қаноатманд дар саросари Тоҷикистон" data-ru="Более 5000 довольных клиентов по всему Таджикистану">Беш аз 5000 муштарии қаноатманд дар саросари Тоҷикистон</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEWSLETTER -->
+        <section class="newsletter-section">
+            <div class="container">
+                <div class="newsletter-content">
+                    <h2 data-tj="📧 Обуна шавед!" data-ru="📧 Подписывайтесь!">📧 Обуна шавед!</h2>
+                    <p data-tj="Барои гирифтани тахфифот ва пешниҳодҳои махсус ба мо обуна шавед" data-ru="Подпишитесь на нашу рассылку для получения скидок и специальных предложений">Барои гирифтани тахфифот ва пешниҳодҳои махсус ба мо обуна шавед</p>
+                    <div class="newsletter-form">
+                        <input type="email" data-placeholder-tj="Почтаи электронии шумо..." data-placeholder-ru="Ваш email..." placeholder="Почтаи электронии шумо...">
+                        <button data-tj="Обуна" data-ru="Подписаться" onclick="showToast(currentLang==='tj'?'✅ Ташаккур! Шумо обуна шудед':'✅ Спасибо! Вы подписаны')">Обуна</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- CATEGORY PAGE -->
+    <div class="category-page" id="categoryPage">
+        <div class="container">
+            <div class="category-page-header">
+                <button class="back-btn" onclick="showHome()">⬅ <span data-tj="Бозгашт" data-ru="Назад">Бозгашт</span></button>
+                <h2 id="categoryPageTitle"></h2>
+            </div>
+            <div class="category-products-grid" id="categoryProductsGrid">
+                <!-- Filled by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer id="contacts">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <a href="#" class="logo" onclick="showHome()">
+                        <div class="logo-icon">T</div>
+                        <div class="logo-text">
+                            <h1>Texmir.tj</h1>
+                            <p data-tj="Техникаи маишӣ" data-ru="Бытовая техника">Техникаи маишӣ</p>
+                        </div>
+                    </a>
+                    <p data-tj="Texmir.tj — мағозаи онлайнии техникаи маишӣ дар Тоҷикистон. Мо маҳсулоти баландсифатро аз брендҳои машҳури ҷаҳон бо нархи арзон пешниҳод мекунем." data-ru="Texmir.tj — интернет-магазин бытовой техники в Таджикистане. Мы предлагаем качественную продукцию от мировых брендов по доступным ценам.">Texmir.tj — мағозаи онлайнии техникаи маишӣ дар Тоҷикистон. Мо маҳсулоти баландсифатро аз брендҳои машҳури ҷаҳон бо нархи арзон пешниҳод мекунем.</p>
+                    <div class="footer-social">
+                        <a href="#">📘</a>
+                        <a href="#">📷</a>
+                        <a href="#">📱</a>
+                        <a href="#">▶️</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3 data-tj="Категорияҳо" data-ru="Категории">Категорияҳо</h3>
+                    <ul>
+                        <li><a href="#" onclick="showCategory('kitchen')" data-tj="🍳 Ошхона" data-ru="🍳 Кухня">🍳 Ошхона</a></li>
+                        <li><a href="#" onclick="showCategory('laundry')" data-tj="👕 Ҷомашӯӣ" data-ru="👕 Стирка">👕 Ҷомашӯӣ</a></li>
+                        <li><a href="#" onclick="showCategory('climate')" data-tj="❄️ Иқлим" data-ru="❄️ Климат">❄️ Иқлим</a></li>
+                        <li><a href="#" onclick="showCategory('cleaning')" data-tj="🧹 Тозакунӣ" data-ru="🧹 Уборка">🧹 Тозакунӣ</a></li>
+                        <li><a href="#" onclick="showCategory('beauty')" data-tj="💇 Зебоӣ" data-ru="💇 Красота">💇 Зебоӣ</a></li>
+                        <li><a href="#" onclick="showCategory('tv')" data-tj="📺 ТВ ва Аудио" data-ru="📺 ТВ и Аудио">📺 ТВ ва Аудио</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3 data-tj="Иттилоот" data-ru="Информация">Иттилоот</h3>
+                    <ul>
+                        <li><a href="#" data-tj="Дар бораи мо" data-ru="О нас">Дар бораи мо</a></li>
+                        <li><a href="#" data-tj="Расонидан" data-ru="Доставка">Расонидан</a></li>
+                        <li><a href="#" data-tj="Пардохт" data-ru="Оплата">Пардохт</a></li>
+                        <li><a href="#" data-tj="Кафолат" data-ru="Гарантия">Кафолат</a></li>
+                        <li><a href="#" data-tj="Баргардонидан" data-ru="Возврат">Баргардонидан</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3 data-tj="Тамос" data-ru="Контакты">Тамос</h3>
+                    <div class="footer-contact-item">
+                        <span class="icon">📍</span>
+                        <p data-tj="Тоҷикистон, ш. Душанбе" data-ru="Таджикистан, г. Душанбе">Тоҷикистон, ш. Душанбе</p>
+                    </div>
+                    <div class="footer-contact-item">
+                        <span class="icon">📞</span>
+                        <p><a href="https://wa.me/992119002301" target="_blank">+992 119002301</a></p>
+                    </div>
+                    <div class="footer-contact-item">
+                        <span class="icon">💬</span>
+                        <p><a href="https://wa.me/992119002301" target="_blank">WhatsApp</a></p>
+                    </div>
+                    <div class="footer-contact-item">
+                        <span class="icon">📧</span>
+                        <p><a href="mailto:info@texmir.tj">info@texmir.tj</a></p>
+                    </div>
+                    <div class="footer-contact-item">
+                        <span class="icon">🕐</span>
+                        <p data-tj="Пн-Шб: 9:00 - 20:00" data-ru="Пн-Сб: 9:00 - 20:00">Пн-Шб: 9:00 - 20:00</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Texmir.tj — <span data-tj="Ҳамаи ҳуқуқҳо ҳифз шудаанд" data-ru="Все права защищены">Ҳамаи ҳуқуқҳо ҳифз шудаанд</span></p>
+                <div class="payment-methods">
+                    <span>💳 Visa</span>
+                    <span>💳 MasterCard</span>
+                    <span>💰 Нақд</span>
+                    <span>📱 Корти миллӣ</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ===== PRODUCT DATA =====
+        const products = [
+            // KITCHEN
+            { id: 1, name_tj: "Яхчоли Samsung RT53K6330", name_ru: "Холодильник Samsung RT53K6330", cat: "kitchen", price: 5200, oldPrice: 6100, badge: "sale", badgeText_tj: "Тахфиф", badgeText_ru: "Скидка", rating: 5, reviews: 42, img: "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=400&h=350&fit=crop", catLabel_tj: "Ошхона", catLabel_ru: "Кухня" },
+            { id: 2, name_tj: "Печи микроволнӣ LG MS2595", name_ru: "Микроволновка LG MS2595", cat: "kitchen", price: 890, oldPrice: 1100, badge: "hot", badgeText_tj: "Ҳит", badgeText_ru: "Хит", rating: 4, reviews: 28, img: "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?w=400&h=350&fit=crop", catLabel_tj: "Ошхона", catLabel_ru: "Кухня" },
+            { id: 3, name_tj: "Чойҷӯш Philips HD9350", name_ru: "Чайник Philips HD9350", cat: "kitchen", price: 320, oldPrice: 400, badge: "sale", badgeText_tj: "Тахфиф", badgeText_ru: "Скидка", rating: 5, reviews: 56, img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=400&h=350&fit=crop", catLabel_tj: "Ошхона", catLabel_ru: "Кухня" },
+            { id: 4, name_tj: "Мултиварка Redmond RMC-M90", name_ru: "Мультиварка Redmond RMC-M90", cat: "kitchen", price: 750, oldPrice: 900, badge: "new", badgeText_tj: "Нав", badgeText_ru: "Новинка", rating: 5, reviews: 34, img: "https://images.unsplash.com/photo-1585515320310-259814833e62?w=400&h=350&fit=crop", catLabel_tj: "Ошхона", catLabel_ru: "Кухня" },
+            { id: 5, name_tj: "Блендери Bosch MMB6172S", name_ru: "Блендер Bosch MMB6172S", cat: "kitchen", price: 480, oldPrice: 580, badge: "hot", badgeText_tj: "Ҳит", badgeText_ru: "Хит", rating: 4, reviews: 19, img: "https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=400&h=350&fit=crop", catLabel_tj: "Ошхона", catLabel_ru: "Кухня" },
+            { id: 6, name_tj: "Печи газӣ Artel Aperto 10-G", name_ru: "Газовая плита Artel Aperto 10-G", cat: "kitchen", price: 2800, oldPrice: 3200, badge: "sale", badgeText_tj: "Тахфиф", badgeText_ru: "Скидка", rating: 5, reviews: 31, img: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=350&fit=crop", catLabel_tj: "Ошхона", catLabel_ru: "Кухня" },
+            { id: 7, name_tj: "Тостери Tefal TT3670", name_ru: "Тостер Tefal TT3670", cat: "kitchen", price: 350, oldPrice: null, badge: "new", badgeText_tj: "Нав", badgeText_ru: "Новинка", rating: 4, reviews: 12, img: "https://images.unsplash.com/photo-1621869266218-21988ef14007?w=400&h=350&fit=crop", catLabel_tj: "Ошхона", catLabel_ru: "Кухня" },
+            { id: 8, name_tj: "Мошини кофе DeLonghi EC685", name_ru: "Кофемашина DeLonghi EC685", cat: "kitchen", price: 2100, oldPrice: 2500, badge: "hot", badgeText_tj: "Ҳит", badgeText_ru: "Хит", rating: 5, reviews: 47, img: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=350&fit=crop", catLabel_tj: "Ошхона", catLabel_ru: "Кухня" },
+
+            // LAUNDRY
+            { id: 9, name_tj: "Мошини ҷомашӯӣ LG F4V5RYP0W", name_ru: "Стиральная машина LG F4V5RYP0W", cat: "laundry", price: 3800, oldPrice: 4500, badge: "sale", badgeText_tj: "Тахфиф", badgeText_ru: "Скидка", rating: 5, reviews: 67, img: "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?w=400&h=350&fit=crop", catLabel_tj: "Ҷомашӯӣ", catLabel_ru: "Стирка" },
+            { id: 10, name_tj: "Мошини ҷомашӯӣ Samsung WW90", name_ru: "Стиральная машина Samsung WW90", cat: "laundry", price: 3200, oldPrice: 3800, badge: "hot", badgeText_tj: "Ҳит", badgeText_ru: "Хит", rating: 4, reviews: 38, img: "https://images.unsplash.com/photo-1604335399105-a0c585fd81a1?w=400&h=350&fit=crop", catLabel_tj: "Ҷомашӯӣ", catLabel_ru: "Стирка" },
+            { id: 11, name_tj: "Хушккунаки Bosch WTH85V0EPL", name_ru: "Сушильная машина Bosch WTH85V0E", cat: "laundry", price: 4200, oldPrice: 4900, badge: "new", badgeText_tj: "Нав", badgeText_ru: "Новинка", rating: 5, reviews: 15, img: "https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=400&h=350&fit=crop", catLabel_tj: "Ҷомашӯӣ", catLabel_ru: "Стирка" },
+            { id: 12, name_tj: "Мошини ҷомашӯӣ Artel 60С101", name_ru: "Стиральная машина Artel 60С101", cat: "laundry", price: 2500, oldPrice: 2900, badge: "sale", badgeText_tj: "Тахфиф", badgeText_ru: "Скидка", rating: 4, reviews: 44, img: "https://images.unsplash.com/photo-1610557892470-55d9e80c0eb7?w=400&h=350&fit=crop", catLabel_tj: "Ҷомашӯӣ", catLabel_ru: "Стирка" },
+            { id: 13, name_tj: "Утюг Philips GC4938/20", name_ru: "Утюг Philips GC4938/20", cat: "laundry", price: 450, oldPrice: 550, badge: null, badgeText_tj: "", badgeText_ru: "", rating: 5, reviews: 22, img: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400&h=350&fit=crop", catLabel_tj: "Ҷомашӯӣ", catLabel_ru: "Стирка" },
+            { id: 14, name_tj: "Утюги буғдор Tefal IT3420", name_ru: "Отпариватель Tefal IT3420", cat: "laundry", price: 680, oldPrice: 800, badge: "new", badgeText_tj: "Нав", badgeText_ru: "Новинка", rating: 4, reviews: 11, img: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&h=350&fit=crop", catLabel_tj: "Ҷомашӯӣ", catLabel_ru: "Стирка" },
+
+            // CLIMATE
+            { id: 15, name_tj: "Кондитсионер Samsung AR12", name_ru: "Кондиционер Samsung AR12", cat: "climate", price: 4500, oldPrice: 5200, badge: "sale", badgeText_tj: "Тахфиф", badgeText_ru: "Скидка", rating: 5, reviews: 82, img: "https://images.unsplash.com/photo-1585338107529-13afc5f02586?w=400&h=350&fit=crop", catLabel_tj: "Иқлим", catLabel_ru: "Климат" },
+            { id: 16, name_tj: "Кондитсионер Midea MSMA-12HR", name_ru: "Кондиционер Midea MSMA-12HR", cat: "climate", price: 3500, oldPrice: 4000, badge: "hot", badgeText_tj: "Ҳит", badgeText_ru: "Хит", rating: 4, reviews: 55, img: "https://images.unsplash.com/photo-1631567091196-02e6c5d4e64e?w=400&h=350&fit=crop", catLabel_tj: "Иқлим", catLabel_ru: "Климат" },
+            { id: 17, name_tj: "Гарм кунаки Xiaomi Mi Smart", name_ru: "Обогреватель Xiaomi Mi Smart", cat: "climate", price: 1200, oldPrice: 1500, badge: "new", badgeText_tj: "Нав", badgeText_ru: "Новинка", rating: 5, reviews: 23, img: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400&h=350&fit=crop", catLabel_tj: "Иқлим", catLabel_ru: "Климат" },
+            { id: 18, name_tj: "Намкунаки Philips HU4814", name_ru: "Увлажнитель Philips HU4814", cat: "climate", price: 650, oldPrice: 780, badge: null, badgeText_tj: "", badgeText_ru: "", rating: 4, reviews: 17, img: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=350&fit=crop", catLabel_tj: "Иқлим", catLabel_ru: "Климат" },
+            { id: 19, name_tj: "Кондитсионер LG Dual Inverter", name_ru: "Кондиционер LG Dual Inverter", cat: "climate", price: 5800, oldPrice: 6500, badge: "sale", badgeText_tj: "Тахфиф", badgeText_ru: "Скидка", rating: 5, reviews: 91, img: "https://images.unsplash.com/photo-1625961332771-3f40b0e2bdcf?w=400&h=350&fit=crop", catLabel_tj: "Иқлим", catLabel_ru: "Климат" },
+            { id: 20, name_tj: "Вентилятори деворӣ Artel 40 см", name_ru: "Настенный вентилятор Artel 40 см", cat: "climate", price: 280, oldPrice: 350, badge: null, badgeText_tj: "", badgeText_ru: "", rating: 4, reviews: 29, img: "https://images.unsplash.com/photo-1622942579469-1d1e70644f7e?w=400&h=350&fit=crop", catLabel_tj: "Иқлим", catLabel_ru: "Климат" },
+
+            // CLEANING
+            { id: 21, name_tj: "Чангкашак Dyson V15 Detect", name_ru: "Пылесос Dyson V15 Detect", cat: "cleaning", price: 5500, oldPrice: 6200, badge: "hot", badgeText_tj: "Ҳит", badgeText_ru: "Хит", rating: 5, reviews: 73, img: "https://images.unsplash.com/photo-1558317374-067fb5f30001?w=400&h=350&fit=crop", catLabel_tj: "Тозакунӣ", catLabel_ru: "Уборка" },
+            { id: 22, name_tj: "Чангкашаки робот Xiaomi Roborock", name_ru: "Робот-пылесос Xiaomi Roborock", cat: "cleaning", price: 3200, oldPrice: 3800, badge: "new", badgeText_tj: "Нав", badgeText_ru: "Новинка", rating: 5, reviews: 45, img: "https://images.unsplash.com/photo-1603618090561-412154b4bd1b?w=400&h=350&fit=crop", catLabel_tj: "Тозакунӣ", catLabel_ru: "Уборка" },
+            { id: 23, name_tj: "Чангкашак Samsung VC18M31", name_ru: "Пылесос Samsung VC18M31", cat: "cleaning", price: 980, oldPrice: 1200, badge: "sale", badgeText_tj: "Тахфиф", badgeText_ru: "Скидка", rating: 4, reviews: 36, img: "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=400&h=350&fit=crop", catLabel_tj: "Тозакунӣ", catLabel_ru: "Уборка" },
+            { id: 24, name_tj: "Тозакунаки буғии Karcher SC3", name_ru: "Пароочиститель Karcher SC3", cat: "cleaning", price: 1450, oldPrice: 1700, badge: null, badgeText_tj: "", badgeText_ru: "", rating: 4, reviews: 18, img: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&h=350&fit=crop", catLabel_tj: "Тозакунӣ", catLabel_ru: "Уборка" },
+
+            // BEAUTY
+            { id: 25, name_tj: "Сартарошаки Philips Series 9000", name_ru: "Бритва Philips Series 9000", cat: "beauty", price: 1800, oldPrice: 2200, badge: "hot", badgeText_tj: "Ҳит", badgeText_ru: "Хит", rating: 5, reviews: 58, img: "https://images.unsplash.com/photo-1621607512022-6aecc52ceaa2?w=400&h=350&fit=crop", catLabel_tj: "Зебоӣ", catLabel_ru: "Красота" },
+            { id: 26, name_tj: "Фен Dyson Supersonic HD07", name_ru: "Фен Dyson Supersonic HD07", cat: "beauty", price: 4200, oldPrice: 4800, badge: "new", badgeText_tj: "Нав", badgeText_ru: "Новинка", rating: 5, reviews: 39, img: "https://images.unsplash.com/photo-1522338242992-e1a54571eeb9?w=400&h=350&fit=crop", catLabel_tj: "Зебоӣ", catLabel_ru: "Красота" },
+            { id: 27, name_tj: "Мӯйтарошӣ Braun Series 7", name_ru: "Триммер Braun Series 7", cat: "beauty", price: 950, oldPrice: 1100, badge: "sale", badgeText_tj: "Тахфиф", badgeText_ru: "Скидка", rating: 4, reviews: 25, img: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400&h=350&fit=crop", catLabel_tj: "Зебоӣ", catLabel_ru: "Красота" },
+            { id: 28, name_tj: "Мӯйрост Philips BHB878", name_ru: "Плойка Philips BHB878", cat: "beauty", price: 550, oldPrice: 680, badge: null, badgeText_tj: "", badgeText_ru: "", rating: 4, reviews: 14, img: "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=400&h=350&fit=crop", catLabel_tj: "Зебоӣ", catLabel_ru: "Красота" },
+
+            // TV & AUDIO
+            { id: 29, name_tj: "Телевизори Samsung 55\" QLED", name_ru: "Телевизор Samsung 55\" QLED", cat: "tv", price: 7500, oldPrice: 8500, badge: "sale", badgeText_tj: "Тахфиф", badgeText_ru: "Скидка", rating: 5, reviews: 95, img: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=400&h=350&fit=crop", catLabel_tj: "ТВ ва Аудио", catLabel_ru: "ТВ и Аудио" },
+            { id: 30, name_tj: "Телевизори LG 50\" UHD 4K", name_ru: "Телевизор LG 50\" UHD 4K", cat: "tv", price: 5200, oldPrice: 6000, badge: "hot", badgeText_tj: "Ҳит", badgeText_ru: "Хит", rating: 5, reviews: 61, img: "https://images.unsplash.com/photo-1461151304267-38535e780c79?w=400&h=350&fit=crop", catLabel_tj: "ТВ ва Аудио", catLabel_ru: "ТВ и Аудио" },
+            { id: 31, name_tj: "Колонкаи JBL Charge 5", name_ru: "Колонка JBL Charge 5", cat: "tv", price: 980, oldPrice: 1200, badge: "new", badgeText_tj: "Нав", badgeText_ru: "Новинка", rating: 5, reviews: 40, img: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400&h=350&fit=crop", catLabel_tj: "ТВ ва Аудио", catLabel_ru: "ТВ и Аудио" },
+            { id: 32, name_tj: "Саундбар Samsung HW-Q600A", name_ru: "Саундбар Samsung HW-Q600A", cat: "tv", price: 2800, oldPrice: 3300, badge: "sale", badgeText_tj: "Тахфиф", badgeText_ru: "Скидка", rating: 4, reviews: 27, img: "https://images.unsplash.com/photo-1545454675-3531b543be5d?w=400&h=350&fit=crop", catLabel_tj: "ТВ ва Аудио", catLabel_ru: "ТВ и Аудио" },
+            { id: 33, name_tj: "Телевизори Xiaomi 43\" Smart TV", name_ru: "Телевизор Xiaomi 43\" Smart TV", cat: "tv", price: 3200, oldPrice: 3700, badge: "hot", badgeText_tj: "Ҳит", badgeText_ru: "Хит", rating: 4, reviews: 52, img: "https://images.unsplash.com/photo-1571415060716-baff5f717c37?w=400&h=350&fit=crop", catLabel_tj: "ТВ ва Аудио", catLabel_ru: "ТВ и Аудио" },
+            { id: 34, name_tj: "Гӯшмонаки Sony WH-1000XM5", name_ru: "Наушники Sony WH-1000XM5", cat: "tv", price: 2400, oldPrice: 2800, badge: "new", badgeText_tj: "Нав", badgeText_ru: "Новинка", rating: 5, reviews: 33, img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=350&fit=crop", catLabel_tj: "ТВ ва Аудио", catLabel_ru: "ТВ и Аудио" },
+        ];
+
+        // ===== STATE =====
+        let currentLang = 'tj';
+        let cart = [];
+        let currentSlide = 0;
+
+        // ===== SPLASH SCREEN =====
+        setTimeout(() => {
+            document.getElementById('splashScreen').classList.add('hidden');
+        }, 2800);
+
+        // ===== LANGUAGE =====
+        function setLang(lang) {
+            currentLang = lang;
+            document.getElementById('langTJ').classList.toggle('active', lang === 'tj');
+            document.getElementById('langRU').classList.toggle('active', lang === 'ru');
+
+            // Update splash text
+            document.getElementById('splashText').textContent = lang === 'tj' ? 'Хуш омадед ба Texmir.tj!' : 'Добро пожаловать в Texmir.tj!';
+
+            // Update all translatable elements
+            document.querySelectorAll('[data-tj]').forEach(el => {
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') return;
+                el.innerHTML = el.getAttribute('data-' + lang);
+            });
+
+            // Update placeholders
+            document.querySelectorAll('[data-placeholder-tj]').forEach(el => {
+                el.placeholder = el.getAttribute('data-placeholder-' + lang);
+            });
+
+            // Re-render products
+            renderMainProducts();
+            renderNewProducts();
+
+            // Re-render cart
+            renderCart();
+
+            // If category page is open, re-render
+            if (document.getElementById('categoryPage').classList.contains('active')) {
+                const cat = document.getElementById('categoryPage').dataset.currentCat;
+                if (cat) showCategory(cat);
+            }
+        }
+
+        // ===== RENDER PRODUCT CARD =====
+        function renderProductCard(product) {
+            const name = currentLang === 'tj' ? product.name_tj : product.name_ru;
+            const catLabel = currentLang === 'tj' ? product.catLabel_tj : product.catLabel_ru;
+            const badgeText = currentLang === 'tj' ? product.badgeText_tj : product.badgeText_ru;
+            const addText = currentLang === 'tj' ? '🛒 Ба сабад' : '🛒 В корзину';
+            const starsHtml = '⭐'.repeat(product.rating);
+            const badgeClass = product.badge === 'sale' ? 'badge-sale' : product.badge === 'new' ? 'badge-new' : product.badge === 'hot' ? 'badge-hot' : '';
+
+            return `
+                <div class="product-card" data-cat="${product.cat}">
+                    ${product.badge ? `<span class="product-badge ${badgeClass}">${badgeText}</span>` : ''}
+                    <button class="product-wishlist" onclick="this.classList.toggle('liked')">♥</button>
+                    <div class="product-image">
+                        <img src="${product.img}" alt="${name}" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category-label">${catLabel}</div>
+                        <h3>${name}</h3>
+                        <div class="product-rating">
+                            <span class="stars">${starsHtml}</span>
+                            <span class="rating-count">(${product.reviews})</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">${product.price.toLocaleString()} ${currentLang === 'tj' ? 'сом.' : 'сом.'}</span>
+                            ${product.oldPrice ? `<span class="old-price">${product.oldPrice.toLocaleString()} сом.</span>` : ''}
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn-cart" onclick="addToCart(${product.id})">${addText}</button>
+                            <button class="btn-quick-view" onclick="quickView(${product.id})">👁️</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ===== RENDER MAIN PRODUCTS (first 8) =====
+        function renderMainProducts(filter = 'all') {
+            const grid = document.getElementById('productsGrid');
+            let filtered = filter === 'all' ? products : products.filter(p => p.cat === filter);
+            grid.innerHTML = filtered.slice(0, 8).map(p => renderProductCard(p)).join('');
+        }
+
+        // ===== RENDER NEW PRODUCTS =====
+        function renderNewProducts() {
+            const grid = document.getElementById('newProductsGrid');
+            const newProds = products.filter(p => p.badge === 'new' || p.badge === 'hot');
+            grid.innerHTML = newProds.slice(0, 8).map(p => renderProductCard(p)).join('');
+        }
+
+        // ===== FILTER PRODUCTS =====
+        function filterProducts(cat, btn) {
+            document.querySelectorAll('.product-tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            renderMainProducts(cat);
+        }
+
+        // ===== SEARCH =====
+        function searchProducts(query) {
+            const grid = document.getElementById('productsGrid');
+            if (!query.trim()) {
+                renderMainProducts();
+                return;
+            }
+            const q = query.toLowerCase();
+            const filtered = products.filter(p =>
+                p.name_tj.toLowerCase().includes(q) ||
+                p.name_ru.toLowerCase().includes(q) ||
+                p.cat.includes(q)
+            );
+            grid.innerHTML = filtered.length > 0 
+                ? filtered.map(p => renderProductCard(p)).join('') 
+                : `<p style="grid-column:1/-1;text-align:center;padding:40px;color:#999;font-size:1.1rem;">${currentLang==='tj'?'Маҳсулот ёфт нашуд':'Товары не найдены'} 😔</p>`;
+        }
+
+        // ===== SHOW CATEGORY PAGE =====
+        function showCategory(cat) {
+            const catNames = {
+                kitchen: { tj: '🍳 Маҳсулоти Ошхона', ru: '🍳 Кухонная техника' },
+                laundry: { tj: '👕 Ҷомашӯӣ ва Утюг', ru: '👕 Стирка и Глажка' },
+                climate: { tj: '❄️ Техникаи иқлим', ru: '❄️ Климатическая техника' },
+                cleaning: { tj: '🧹 Тозакунӣ', ru: '🧹 Техника для уборки' },
+                beauty: { tj: '💇 Зебоӣ ва Саломатӣ', ru: '💇 Красота и Здоровье' },
+                tv: { tj: '📺 ТВ ва Аудио', ru: '📺 ТВ и Аудио' }
+            };
+
+            document.getElementById('mainContent').style.display = 'none';
+            const categoryPage = document.getElementById('categoryPage');
+            categoryPage.classList.add('active');
+            categoryPage.dataset.currentCat = cat;
+            document.getElementById('categoryPageTitle').textContent = catNames[cat][currentLang];
+
+            const catProducts = products.filter(p => p.cat === cat);
+            document.getElementById('categoryProductsGrid').innerHTML = catProducts.map(p => renderProductCard(p)).join('');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showHome() {
+            document.getElementById('mainContent').style.display = 'block';
+            document.getElementById('categoryPage').classList.remove('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ===== CART =====
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            const existing = cart.find(c => c.id === id);
+            if (existing) {
+                existing.qty++;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+            updateCartCount();
+            renderCart();
+            showToast(currentLang === 'tj' ? '✅ Ба сабад илова шуд!' : '✅ Добавлено в корзину!');
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(c => c.id !== id);
+            updateCartCount();
+            renderCart();
+        }
+
+        function changeQty(id, delta) {
+            const item = cart.find(c => c.id === id);
+            if (item) {
+                item.qty += delta;
+                if (item.qty <= 0) {
+                    removeFromCart(id);
+                    return;
+                }
+            }
+            updateCartCount();
+            renderCart();
+        }
+
+        function updateCartCount() {
+            const total = cart.reduce((sum, c) => sum + c.qty, 0);
+            document.getElementById('cartCount').textContent = total;
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cartItems');
+            const footer = document.getElementById('cartFooter');
+
+            if (cart.length === 0) {
+                container.innerHTML = `<div class="cart-empty"><div class="icon">🛒</div><p>${currentLang==='tj'?'Сабад холӣ аст':'Корзина пуста'}</p></div>`;
+                footer.style.display = 'none';
+                return;
+            }
+
+            footer.style.display = 'block';
+            document.getElementById('cartTitle').textContent = currentLang === 'tj' ? '🛒 Сабад' : '🛒 Корзина';
+            document.getElementById('totalLabel').textContent = currentLang === 'tj' ? 'Ҳамагӣ:' : 'Итого:';
+            document.getElementById('checkoutBtn').textContent = currentLang === 'tj' ? '📱 Фармоиш тавассути WhatsApp' : '📱 Заказать через WhatsApp';
+
+            let total = 0;
+            container.innerHTML = cart.map(item => {
+                const name = currentLang === 'tj' ? item.name_tj : item.name_ru;
+                total += item.price * item.qty;
+                return `
+                    <div class="cart-item">
+                        <div class="cart-item-image"><img src="${item.img}" style="width:100%;height:100%;object-fit:cover;border-radius:12px;"></div>
+                        <div class="cart-item-info">
+                            <h4>${name}</h4>
+                            <div class="price">${(item.price * item.qty).toLocaleString()} сом.</div>
+                            <div class="cart-item-qty">
+                                <button onclick="changeQty(${item.id}, -1)">−</button>
+                                <span>${item.qty}</span>
+                                <button onclick="changeQty(${item.id}, 1)">+</button>
+                            </div>
+                        </div>
+                        <button class="cart-item-remove" onclick="removeFromCart(${item.id})">✕</button>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('cartTotal').textContent = total.toLocaleString() + ' сом.';
+        }
+
+        function toggleCart() {
+            document.getElementById('cartDrawer').classList.toggle('active');
+            document.getElementById('cartOverlay').classList.toggle('active');
+        }
+
+        function checkout() {
+            if (cart.length === 0) return;
+            let msg = currentLang === 'tj' ? '🛒 Фармоиш аз Texmir.tj:\n\n' : '🛒 Заказ с Texmir.tj:\n\n';
+            let total = 0;
+            cart.forEach(item => {
+                const name = currentLang === 'tj' ? item.name_tj : item.name_ru;
+                msg += `• ${name} x${item.qty} = ${(item.price * item.qty).toLocaleString()} сом.\n`;
+                total += item.price * item.qty;
+            });
+            msg += `\n${currentLang==='tj'?'Ҳамагӣ':'Итого'}: ${total.toLocaleString()} сом.`;
+            const encoded = encodeURIComponent(msg);
+            window.open(`https://wa.me/992119002301?text=${encoded}`, '_blank');
+        }
+
+        function quickView(id) {
+            const p = products.find(pr => pr.id === id);
+            const name = currentLang === 'tj' ? p.name_tj : p.name_ru;
+            const msg = currentLang === 'tj'
+                ? `Салом! Ман дар бораи "${name}" маълумот мехоҳам. Нарх: ${p.price.toLocaleString()} сомонӣ`
+                : `Здравствуйте! Хочу узнать о "${name}". Цена: ${p.price.toLocaleString()} сомони`;
+            window.open(`https://wa.me/992119002301?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        // ===== MOBILE NAV =====
+        function toggleMobileNav() {
+            document.getElementById('mobileNav').classList.toggle('active');
+            document.getElementById('mobileNavOverlay').classList.toggle('active');
+        }
+
+        // ===== TOAST =====
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        // ===== HERO SLIDER =====
+        function goToSlide(index) {
+            const slides = document.querySelectorAll('.hero-slide');
+            const dots = document.querySelectorAll('.hero-dot');
+            slides.forEach(s => s.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentSlide = index;
+        }
+
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % 3;
+            goToSlide(currentSlide);
+        }, 5000);
+
+        // ===== COUNTDOWN TIMER =====
+        function updateTimer() {
+            const endDate = new Date();
+            endDate.setDate(endDate.getDate() + 15);
+            
+            function tick() {
+                const now = new Date();
+                const diff = endDate - now;
+                const d = Math.floor(diff / (1000*60*60*24));
+                const h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+                const m = Math.floor((diff % (1000*60*60)) / (1000*60));
+                const s = Math.floor((diff % (1000*60)) / 1000);
+
+                document.getElementById('timerDays').textContent = d.toString().padStart(2,'0');
+                document.getElementById('timerHours').textContent = h.toString().padStart(2,'0');
+                document.getElementById('timerMins').textContent = m.toString().padStart(2,'0');
+                document.getElementById('timerSecs').textContent = s.toString().padStart(2,'0');
+            }
+            tick();
+            setInterval(tick, 1000);
+        }
+        updateTimer();
+
+        // ===== SCROLL TO TOP =====
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('scrollTop');
+            btn.classList.toggle('visible', window.scrollY > 500);
+        });
+
+        // ===== INIT =====
+        renderMainProducts();
+        renderNewProducts();
+    </script>
+</body>
+</html>
+```
