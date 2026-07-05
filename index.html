@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tj">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1053,6 +1053,113 @@
         }
         .toast.show { transform: translateX(-50%) translateY(0); }
 
+
+        /* ALIF-LIKE QUICK CATEGORIES UNDER SEARCH — Texmir colors stay orange/black */
+        .quick-cats-section {
+            background: #f5f5f7;
+            padding: 14px 0 10px;
+            border-top: 1px solid rgba(0,0,0,0.03);
+        }
+        .quick-cats-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .quick-cats-head h2 {
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: var(--black);
+        }
+        .quick-scroll-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: none;
+            background: white;
+            color: var(--black);
+            font-size: 1.45rem;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+            transition: all .25s;
+        }
+        .quick-scroll-btn:hover { color: var(--orange); transform: scale(1.05); }
+        #categoryGrid {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-behavior: smooth;
+            padding: 4px 4px 12px;
+            -webkit-overflow-scrolling: touch;
+        }
+        #categoryGrid::-webkit-scrollbar { height: 6px; }
+        #categoryGrid::-webkit-scrollbar-track { background: transparent; }
+        #categoryGrid::-webkit-scrollbar-thumb { background: #ddd; border-radius: 10px; }
+        #categoryGrid .cat-circle {
+            min-width: 260px;
+            height: 72px;
+            border-radius: 18px;
+            background: white;
+            border: 1px solid rgba(0,0,0,0.04);
+            padding: 12px 16px 12px 12px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+            cursor: pointer;
+            transition: all .25s ease;
+            flex-shrink: 0;
+        }
+        #categoryGrid .cat-circle:hover {
+            border-color: rgba(232,135,60,.55);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 26px rgba(232,135,60,0.13);
+        }
+        #categoryGrid .cat-img {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            border-radius: 16px;
+            background: linear-gradient(145deg, #fff7ef, #ffffff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 29px;
+            box-shadow: inset 0 -3px 8px rgba(232,135,60,0.08), 0 4px 12px rgba(0,0,0,0.05);
+        }
+        #categoryGrid .cat-title {
+            flex: 1;
+            font-size: .96rem;
+            line-height: 1.18;
+            font-weight: 800;
+            color: var(--black);
+            margin: 0;
+        }
+        #categoryGrid .cat-arrow {
+            width: 34px;
+            height: 34px;
+            min-width: 34px;
+            border-radius: 50%;
+            background: var(--orange-light);
+            color: var(--orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.45rem;
+            font-weight: 900;
+            transition: all .25s;
+        }
+        #categoryGrid .cat-circle:hover .cat-arrow {
+            background: var(--orange);
+            color: white;
+            transform: translateX(3px);
+        }
+        .catalog-menu-item .cm-icon { display: none; }
+        .catalog-menu-item { padding: 15px 25px; }
         /* RESPONSIVE */
         @media (max-width: 1200px) {
             .prod-grid { grid-template-columns: repeat(4, 1fr); }
@@ -1140,72 +1247,15 @@
 <div class="mobile-nav-overlay" id="mobileOverlay" onclick="closeMobileNav()"></div>
 <div class="mobile-nav" id="mobileNav">
     <div class="mobile-nav-head">
-        <h3>📋 Меню</h3>
+        <h3>Меню</h3>
         <button class="mobile-close" onclick="closeMobileNav()">✕</button>
     </div>
-    <ul>
-        <li><a onclick="showHome();closeMobileNav()">🏠 <span class="t" data-tj="Асосӣ" data-ru="Главная">Асосӣ</span></a></li>
-        <li><a onclick="showCat('kitchen');closeMobileNav()">🍳 <span class="t" data-tj="Ошхона" data-ru="Кухня">Ошхона</span></a></li>
-        <li><a onclick="showCat('laundry');closeMobileNav()">👕 <span class="t" data-tj="Ҷомашӯӣ" data-ru="Стирка">Ҷомашӯӣ</span></a></li>
-        <li><a onclick="showCat('climate');closeMobileNav()">❄️ <span class="t" data-tj="Иқлим" data-ru="Климат">Иқлим</span></a></li>
-        <li><a onclick="showCat('cleaning');closeMobileNav()">🧹 <span class="t" data-tj="Тозакунӣ" data-ru="Уборка">Тозакунӣ</span></a></li>
-        <li><a onclick="showCat('beauty');closeMobileNav()">💇 <span class="t" data-tj="Зебоӣ" data-ru="Красота">Зебоӣ</span></a></li>
-        <li><a onclick="showCat('tv');closeMobileNav()">📺 <span class="t" data-tj="ТВ ва Аудио" data-ru="ТВ и Аудио">ТВ ва Аудио</span></a></li>
-        <li><a href="#footer" onclick="closeMobileNav()">📞 <span class="t" data-tj="Тамос" data-ru="Контакты">Тамос</span></a></li>
-    </ul>
+    <ul id="mobileCatList"></ul>
 </div>
 
 <!-- CATALOG DROPDOWN (Alif style) -->
 <div class="catalog-overlay" id="catalogOverlay" onclick="closeCatalog()"></div>
-<div class="catalog-menu" id="catalogMenu">
-    <button class="catalog-menu-item" onclick="filterProdsAll('sale')">
-        <span class="cm-icon">%</span>
-        <span class="cm-text t" data-tj="Тахфифот" data-ru="Скидки">Тахфифот</span>
-        <span class="cm-arrow">›</span>
-    </button>
-    <button class="catalog-menu-item" onclick="scrollToBrands()">
-        <span class="cm-icon">🏭</span>
-        <span class="cm-text t" data-tj="Брендҳо" data-ru="Бренды">Брендҳо</span>
-        <span class="cm-arrow">›</span>
-    </button>
-    <div class="catalog-menu-divider"></div>
-    <button class="catalog-menu-item" onclick="showCat('kitchen')">
-        <span class="cm-icon">🍳</span>
-        <span class="cm-text t" data-tj="Ошхона" data-ru="Кухня">Ошхона</span>
-        <span class="cm-arrow">›</span>
-    </button>
-    <button class="catalog-menu-item" onclick="showCat('laundry')">
-        <span class="cm-icon">👕</span>
-        <span class="cm-text t" data-tj="Ҷомашӯӣ" data-ru="Стирка">Ҷомашӯӣ</span>
-        <span class="cm-arrow">›</span>
-    </button>
-    <button class="catalog-menu-item" onclick="showCat('climate')">
-        <span class="cm-icon">❄️</span>
-        <span class="cm-text t" data-tj="Иқлим" data-ru="Климат">Иқлим</span>
-        <span class="cm-arrow">›</span>
-    </button>
-    <button class="catalog-menu-item" onclick="showCat('cleaning')">
-        <span class="cm-icon">🧹</span>
-        <span class="cm-text t" data-tj="Тозакунӣ" data-ru="Уборка">Тозакунӣ</span>
-        <span class="cm-arrow">›</span>
-    </button>
-    <button class="catalog-menu-item" onclick="showCat('beauty')">
-        <span class="cm-icon">💇</span>
-        <span class="cm-text t" data-tj="Зебоӣ" data-ru="Красота">Зебоӣ</span>
-        <span class="cm-arrow">›</span>
-    </button>
-    <button class="catalog-menu-item" onclick="showCat('tv')">
-        <span class="cm-icon">📺</span>
-        <span class="cm-text t" data-tj="ТВ ва Аудио" data-ru="ТВ и Аудио">ТВ ва Аудио</span>
-        <span class="cm-arrow">›</span>
-    </button>
-    <div class="catalog-menu-divider"></div>
-    <button class="catalog-menu-item" onclick="filterProdsAll('new')">
-        <span class="cm-icon">⭐</span>
-        <span class="cm-text t" data-tj="Навтарин" data-ru="Новинки">Навтарин</span>
-        <span class="cm-arrow">›</span>
-    </button>
-</div>
+<div class="catalog-menu" id="catalogMenu"></div>
 
 <!-- TOP BAR -->
 <div class="topbar">
@@ -1219,10 +1269,10 @@
         </div>
         <div class="topbar-right">
             <div class="lang-box">
-                <button class="lang-btn active" id="btnTJ" onclick="setLang('tj')">
+                <button class="lang-btn" id="btnTJ" onclick="setLang('tj')">
                     <span class="flag flag-tj"></span> TJ
                 </button>
-                <button class="lang-btn" id="btnRU" onclick="setLang('ru')">
+                <button class="lang-btn active" id="btnRU" onclick="setLang('ru')">
                     <span class="flag flag-ru"></span> RU
                 </button>
             </div>
@@ -1248,7 +1298,7 @@
             <input type="text" id="searchInput"
                 data-ph-tj="Ҷустуҷӯи маҳсулот..."
                 data-ph-ru="Поиск товаров..."
-                placeholder="Ҷустуҷӯи маҳсулот..."
+                placeholder="Поиск товаров..."
                 oninput="doSearch(this.value)">
             <button>🔍</button>
         </div>
@@ -1265,6 +1315,17 @@
         </div>
     </div>
 </header>
+
+<!-- QUICK CATEGORIES UNDER SEARCH -->
+<section class="quick-cats-section" id="categories">
+    <div class="wrap">
+        <div class="quick-cats-head">
+            <h2>Категории</h2>
+            <button class="quick-scroll-btn" onclick="scrollCategoriesRight()">›</button>
+        </div>
+        <div class="cat-circles" id="categoryGrid"></div>
+    </div>
+</section>
 
 <!-- MAIN -->
 <div id="mainContent">
@@ -1330,7 +1391,7 @@
                 <div class="adv-icon">🛡️</div>
                 <div class="adv-txt">
                     <h4 class="t" data-tj="Кафолати расмӣ" data-ru="Официальная гарантия">Кафолати расмӣ</h4>
-                    <p class="t" data-tj="То 3 сол" data-ru="До 3 лет">То 2 сол</p>
+                    <p class="t" data-tj="То 3 сол" data-ru="До 3 лет">То 3 сол</p>
                 </div>
             </div>
             
@@ -1345,40 +1406,7 @@
     </div>
 </div>
 
-<!-- CATEGORIES -->
-<section class="sec" id="categories">
-    <div class="wrap">
-        <div class="sec-head">
-            <h2>📂 <span class="t" data-tj="Категорияҳо" data-ru="Категории">Категорияҳо</span></h2>
-        </div>
-        <div class="cat-circles">
-            <div class="cat-circle" onclick="showCat('kitchen')">
-                <div class="cat-img"><img src="https://cdn-icons-png.flaticon.com/512/2515/2515263.png" alt=""></div>
-                <h3 class="t" data-tj="Ошхона" data-ru="Кухня">Ошхона</h3>
-            </div>
-            <div class="cat-circle" onclick="showCat('laundry')">
-                <div class="cat-img"><img src="https://cdn-icons-png.flaticon.com/512/2933/2933086.png" alt=""></div>
-                <h3 class="t" data-tj="Ҷомашӯӣ" data-ru="Стирка">Ҷомашӯӣ</h3>
-            </div>
-            <div class="cat-circle" onclick="showCat('climate')">
-                <div class="cat-img"><img src="https://cdn-icons-png.flaticon.com/512/2933/2933116.png" alt=""></div>
-                <h3 class="t" data-tj="Иқлим" data-ru="Климат">Иқлим</h3>
-            </div>
-            <div class="cat-circle" onclick="showCat('cleaning')">
-                <div class="cat-img"><img src="https://cdn-icons-png.flaticon.com/512/2933/2933112.png" alt=""></div>
-                <h3 class="t" data-tj="Тозакунӣ" data-ru="Уборка">Тозакунӣ</h3>
-            </div>
-            <div class="cat-circle" onclick="showCat('beauty')">
-                <div class="cat-img"><img src="https://cdn-icons-png.flaticon.com/512/1940/1940680.png" alt=""></div>
-                <h3 class="t" data-tj="Зебоӣ" data-ru="Красота">Зебоӣ</h3>
-            </div>
-            <div class="cat-circle" onclick="showCat('tv')">
-                <div class="cat-img"><img src="https://cdn-icons-png.flaticon.com/512/3659/3659899.png" alt=""></div>
-                <h3 class="t" data-tj="ТВ ва Аудио" data-ru="ТВ и Аудио">ТВ ва Аудио</h3>
-            </div>
-        </div>
-    </div>
-</section>
+<!-- CATEGORIES MOVED UNDER SEARCH -->
 
 <!-- PRODUCTS - Popular -->
 <section class="sec" id="products">
@@ -1393,24 +1421,6 @@
     </div>
 </section>
 
-<!-- PROMO BANNER -->
-<section class="promo-sec">
-    <div class="wrap">
-        <div class="promo-banner">
-            <div class="promo-txt">
-                <h2 class="t" data-tj="Тахфифот то <span>40%!</span>" data-ru="Скидки до <span>40%!</span>">Тахфифот то <span>40%!</span></h2>
-                <p class="t" data-tj="Пешниҳоди муҳлатнок! Техникаи маиширо бо тахфифи калон харед." data-ru="Ограниченное предложение! Покупайте бытовую технику со скидкой.">Пешниҳоди муҳлатнок! Техникаи маиширо бо тахфифи калон харед.</p>
-                <a href="https://wa.me/992119002301" target="_blank" class="btn btn-orange">📱 <span class="t" data-tj="Фармоиш" data-ru="Заказать">Фармоиш</span></a>
-                <div class="timer">
-                    <div class="timer-box"><span class="num" id="tDay">15</span><span class="lbl t" data-tj="Рӯз" data-ru="Дней">Рӯз</span></div>
-                    <div class="timer-box"><span class="num" id="tHr">08</span><span class="lbl t" data-tj="Соат" data-ru="Часов">Соат</span></div>
-                    <div class="timer-box"><span class="num" id="tMin">45</span><span class="lbl t" data-tj="Дақ" data-ru="Мин">Дақ</span></div>
-                    <div class="timer-box"><span class="num" id="tSec">22</span><span class="lbl t" data-tj="Сон" data-ru="Сек">Сон</span></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 <!-- NEW PRODUCTS -->
 <section class="sec" id="newProducts">
@@ -1435,28 +1445,6 @@
     </div>
 </section>
 
-<!-- BRANDS -->
-<section class="sec" id="brandsSection">
-    <div class="wrap">
-        <div class="sec-head">
-            <h2>🏭 <span class="t" data-tj="Брендҳо" data-ru="Бренды">Брендҳо</span></h2>
-        </div>
-        <div class="brands-grid">
-            <div class="brand-item">Samsung</div>
-            <div class="brand-item">LG</div>
-            <div class="brand-item">Bosch</div>
-            <div class="brand-item">Philips</div>
-            <div class="brand-item">Xiaomi</div>
-            <div class="brand-item">Haier</div>
-            <div class="brand-item">Midea</div>
-            <div class="brand-item">Artel</div>
-            <div class="brand-item">Beko</div>
-            <div class="brand-item">Dyson</div>
-            <div class="brand-item">Tefal</div>
-            <div class="brand-item">Sony</div>
-        </div>
-    </div>
-</section>
 
 </div>
 
@@ -1491,14 +1479,8 @@
                 </div>
             </div>
             <div class="footer-col">
-                <h3 class="t" data-tj="Категорияҳо" data-ru="Категории">Категорияҳо</h3>
-                <ul>
-                    <li><a onclick="showCat('kitchen')"><span class="t" data-tj="Ошхона" data-ru="Кухня">Ошхона</span></a></li>
-                    <li><a onclick="showCat('laundry')"><span class="t" data-tj="Ҷомашӯӣ" data-ru="Стирка">Ҷомашӯӣ</span></a></li>
-                    <li><a onclick="showCat('climate')"><span class="t" data-tj="Иқлим" data-ru="Климат">Иқлим</span></a></li>
-                    <li><a onclick="showCat('cleaning')"><span class="t" data-tj="Тозакунӣ" data-ru="Уборка">Тозакунӣ</span></a></li>
-                    <li><a onclick="showCat('tv')"><span class="t" data-tj="ТВ" data-ru="ТВ">ТВ</span></a></li>
-                </ul>
+                <h3 class="t" data-tj="Категорияҳо" data-ru="Категории">Категории</h3>
+                <ul id="footerCatList"></ul>
             </div>
             <div class="footer-col">
                 <h3 class="t" data-tj="Ширкат" data-ru="Компания">Ширкат</h3>
@@ -1547,391 +1529,265 @@
 </footer>
 
 <script>
-const PRODUCTS = [
-    {
-        id: 1,
-        tj: "Чангкашак 28 литр 8500Вт",
-        ru: "Пылесос 28 литров 8500Вт",
-        cat: "cleaning",
-        price: 550,
-        old: 750,
-        badge: "sale",
-        bTJ: "-27%",
-        bRU: "-27%",
-        img: "tex1.jpg",
-        monthly: 46,
-        catTJ: "Тозакунӣ",
-        catRU: "Уборка"
-    },
-    {
-        id: 2,
-        tj: "Чойникпресс Trendy Туркӣ 2.5л",
-        ru: "Турецкий чайник-пресс Trendy 2.5л",
-        cat: "kitchen",
-        price: 180,
-        old: 250,
-        badge: "hot",
-        bTJ: "Акция",
-        bRU: "Акция",
-        img: "tex2.jpg",
-        monthly: 15,
-        catTJ: "Ошхона",
-        catRU: "Кухня"
-    },
-    {
-        id: 3,
-        tj: "Блендер Evrolux 2 дар 1, 8500Вт",
-        ru: "Блендер Evrolux 2 в 1, 8500Вт",
-        cat: "kitchen",
-        price: 280,
-        old: 400,
-        badge: "hot",
-        bTJ: "Акция",
-        bRU: "Акция",
-        img: "tex3.jpg",
-        monthly: 23,
-        catTJ: "Ошхона",
-        catRU: "Кухня"
-    },
-    {
-        id: 4,
-        tj: "Маҷмӯаи дегҳо UAKEEN Олмонӣ 5 адад",
-        ru: "Набор кастрюль UAKEEN Немецкие 5 шт",
-        cat: "kitchen",
-        price: 649,
-        old: 900,
-        badge: "sale",
-        bTJ: "-28%",
-        bRU: "-28%",
-        img: "tex4.jpg",
-        monthly: 54,
-        catTJ: "Ошхона",
-        catRU: "Кухня"
-    },
-    {
-        id: 5,
-        tj: "Миясарупка BOSCH 3500 гардиш",
-        ru: "Мясорубка BOSCH 3500 оборотов",
-        cat: "kitchen",
-        price: 299,
-        old: 450,
-        badge: "hot",
-        bTJ: "Тахфиф!",
-        bRU: "Акция!",
-        img: "tex5.jpg",
-        monthly: 25,
-        catTJ: "Ошхона",
-        catRU: "Кухня"
-    },
-    {
-        id: 6,
-        tj: "Чангкашак 30 литр 8500Вт Turbo",
-        ru: "Пылесос 30 литров 8500Вт Turbo",
-        cat: "cleaning",
-        price: 450,
-        old: 650,
-        badge: "sale",
-        bTJ: "-30%",
-        bRU: "-30%",
-        img: "tex6.jpg",
-        monthly: 37,
-        catTJ: "Тозакунӣ",
-        catRU: "Уборка"
-    },
-    {
-        id: 7,
-        tj: "Smart TV 45\" HD, 350 канал",
-        ru: "Smart TV 45\" HD, 350 каналов",
-        cat: "tv",
-        price: 1730,
-        old: 2200,
-        badge: "new",
-        bTJ: "Нав",
-        bRU: "Новинка",
-        img: "tex7.jpg",
-        monthly: 144,
-        catTJ: "ТВ ва Аудио",
-        catRU: "ТВ и Аудио"
-    },
+const CATEGORIES = [
+  {id:'washing_machines', name:'Стиральные машины', sticker:'🧺'},
+  {id:'refrigerators', name:'Холодильники', sticker:'🧊'},
+  {id:'freezers', name:'Морозильники', sticker:'❄️'},
+  {id:'conditioners', name:'Кондиционеры', sticker:'🌬️'},
+  {id:'stoves', name:'Кухонные плиты', sticker:'🔥'},
+  {id:'ovens', name:'Духовые шкафы', sticker:'🍞'},
+  {id:'cooktops', name:'Варочные панели', sticker:'🍳'},
+  {id:'hoods', name:'Вытяжки', sticker:'💨'},
+  {id:'dishwashers', name:'Посудомоечные машины', sticker:'🍽️'},
+  {id:'water_heaters', name:'Водонагреватели', sticker:'♨️'},
+  {id:'microwave', name:'Микроволновые печи', sticker:'📟'},
+  {id:'mini_ovens', name:'Мини-печи', sticker:'🥧'},
+  {id:'vacuum', name:'Пылесосы', sticker:'🧹'},
+  {id:'heaters', name:'Обогреватели', sticker:'🌡️'},
+  {id:'clothes_care', name:'Техника для ухода за одеждой', sticker:'👔'},
+  {id:'robot_vacuum', name:'Роботы-пылесосы', sticker:'🤖'},
+  {id:'meat_grinders', name:'Мясорубки', sticker:'🥩'},
+  {id:'blenders', name:'Блендеры', sticker:'🥤'},
+  {id:'food_processors', name:'Кухонные комбайны и измельчители', sticker:'⚙️'},
+  {id:'air_grills', name:'Аэрогрили', sticker:'🍗'},
+  {id:'steam_irons', name:'Парогенераторы и утюги', sticker:'🧼'},
+  {id:'garment_steamers', name:'Отпариватели', sticker:'💦'},
+  {id:'grills', name:'Грили и шашлычницы', sticker:'🍖'},
+  {id:'mixers', name:'Миксеры', sticker:'🥣'},
+  {id:'kettles', name:'Электрочайники и термопоты', sticker:'☕'},
+  {id:'juicers', name:'Соковыжималки', sticker:'🍊'},
+  {id:'coffee', name:'Кофеварки и кофемашины', sticker:'☕'},
+  {id:'toasters', name:'Тостеры', sticker:'🍞'},
+  {id:'fans', name:'Вентиляторы', sticker:'🌀'},
+  {id:'air_cleaners', name:'Очистители и увлажнители воздуха', sticker:'💧'},
+  {id:'sandwich', name:'Сендвичницы и приборы для выпечки', sticker:'🥪'},
+  {id:'coffee_grinders', name:'Кофемолки', sticker:'🫘'}
 ];
-let lang = 'tj';
+
+const CAT_NAMES = Object.fromEntries(CATEGORIES.map(c => [c.id, {tj:c.name, ru:c.name}]));
+
+const PRODUCTS = [
+  {id:1, tj:'Стиральная машина', ru:'Стиральная машина', cat:'washing_machines', price:1799, old:1999, badge:'new', bTJ:'Нав', bRU:'Новинка', img:'images/washing-machine-1.jpg', monthly:100, desc:'Фото: images/washing-machine-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'},
+  {id:2, tj:'Холодильник', ru:'Холодильник', cat:'refrigerators', price:3499, old:3899, badge:'new', bTJ:'Нав', bRU:'Новинка', img:'images/refrigerator-1.jpg', monthly:194, desc:'Фото: images/refrigerator-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'},
+  {id:3, tj:'Морозильник', ru:'Морозильник', cat:'freezers', price:2199, old:2499, badge:'new', bTJ:'Нав', bRU:'Новинка', img:'images/freezer-1.jpg', monthly:122, desc:'Фото: images/freezer-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'},
+  {id:4, tj:'Кондиционер', ru:'Кондиционер', cat:'conditioners', price:2999, old:3299, badge:'hot', bTJ:'Акция', bRU:'Акция', img:'images/conditioner-1.jpg', monthly:167, desc:'Фото: images/conditioner-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'},
+  {id:5, tj:'Кухонная плита', ru:'Кухонная плита', cat:'stoves', price:1299, old:1499, badge:'new', bTJ:'Нав', bRU:'Новинка', img:'images/stove-1.jpg', monthly:72, desc:'Фото: images/stove-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'},
+  {id:6, tj:'Духовой шкаф', ru:'Духовой шкаф', cat:'ovens', price:1599, old:1799, badge:'new', bTJ:'Нав', bRU:'Новинка', img:'images/oven-1.jpg', monthly:89, desc:'Фото: images/oven-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'},
+  {id:7, tj:'Варочная панель', ru:'Варочная панель', cat:'cooktops', price:899, old:1050, badge:'hot', bTJ:'Акция', bRU:'Акция', img:'images/cooktop-1.jpg', monthly:50, desc:'Фото: images/cooktop-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'},
+  {id:8, tj:'Вытяжка', ru:'Вытяжка', cat:'hoods', price:699, old:850, badge:'new', bTJ:'Нав', bRU:'Новинка', img:'images/hood-1.jpg', monthly:39, desc:'Фото: images/hood-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'},
+  {id:9, tj:'Посудомоечная машина', ru:'Посудомоечная машина', cat:'dishwashers', price:3399, old:3699, badge:'new', bTJ:'Нав', bRU:'Новинка', img:'images/dishwasher-1.jpg', monthly:189, desc:'Фото: images/dishwasher-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'},
+  {id:10, tj:'Водонагреватель', ru:'Водонагреватель', cat:'water_heaters', price:799, old:950, badge:'sale', bTJ:'Скидка', bRU:'Скидка', img:'images/water-heater-1.jpg', monthly:44, desc:'Фото: images/water-heater-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'},
+  {id:11, tj:'Микроволновая печь', ru:'Микроволновая печь', cat:'microwave', price:599, old:700, badge:'hot', bTJ:'Акция', bRU:'Акция', img:'images/microwave-1.jpg', monthly:33, desc:'Фото: images/microwave-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'},
+  {id:12, tj:'Мини-печь', ru:'Мини-печь', cat:'mini_ovens', price:499, old:650, badge:'sale', bTJ:'Скидка', bRU:'Скидка', img:'images/mini-oven-1.jpg', monthly:28, desc:'Фото: images/mini-oven-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'},
+  {id:13, tj:'Пылесос', ru:'Пылесос', cat:'vacuum', price:550, old:750, badge:'sale', bTJ:'Скидка', bRU:'Скидка', img:'images/vacuum-1.jpg', monthly:31, desc:'Фото: images/vacuum-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'},
+  {id:14, tj:'Обогреватель', ru:'Обогреватель', cat:'heaters', price:450, old:600, badge:'sale', bTJ:'Скидка', bRU:'Скидка', img:'images/heater-1.jpg', monthly:25, desc:'Фото: images/heater-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'},
+  {id:15, tj:'Техника для ухода за одеждой', ru:'Техника для ухода за одеждой', cat:'clothes_care', price:399, old:0, badge:'new', bTJ:'Нав', bRU:'Новинка', img:'images/clothes-care-1.jpg', monthly:22, desc:'Фото: images/clothes-care-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'},
+  {id:16, tj:'Робот-пылесос', ru:'Робот-пылесос', cat:'robot_vacuum', price:999, old:1199, badge:'new', bTJ:'Нав', bRU:'Новинка', img:'images/robot-vacuum-1.jpg', monthly:56, desc:'Фото: images/robot-vacuum-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'},
+  {id:17, tj:'Мясорубка', ru:'Мясорубка', cat:'meat_grinders', price:380, old:450, badge:'hot', bTJ:'Акция', bRU:'Акция', img:'images/meat-grinder-1.jpg', monthly:21, desc:'Фото: images/meat-grinder-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'},
+  {id:18, tj:'Блендер', ru:'Блендер', cat:'blenders', price:280, old:350, badge:'hot', bTJ:'Акция', bRU:'Акция', img:'images/blender-1.jpg', monthly:16, desc:'Фото: images/blender-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'},
+  {id:19, tj:'Кухонный комбайн и измельчитель', ru:'Кухонный комбайн и измельчитель', cat:'food_processors', price:650, old:780, badge:'new', bTJ:'Нав', bRU:'Новинка', img:'images/food-processor-1.jpg', monthly:36, desc:'Фото: images/food-processor-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'},
+  {id:20, tj:'Аэрогриль', ru:'Аэрогриль', cat:'air_grills', price:720, old:850, badge:'new', bTJ:'Нав', bRU:'Новинка', img:'images/air-grill-1.jpg', monthly:40, desc:'Фото: images/air-grill-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'},
+  {id:21, tj:'Парогенератор ва утюг', ru:'Парогенератор и утюг', cat:'steam_irons', price:420, old:520, badge:'sale', bTJ:'Скидка', bRU:'Скидка', img:'images/steam-iron-1.jpg', monthly:23, desc:'Фото: images/steam-iron-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'},
+  {id:22, tj:'Отпариватель', ru:'Отпариватель', cat:'garment_steamers', price:350, old:430, badge:'hot', bTJ:'Акция', bRU:'Акция', img:'images/garment-steamer-1.jpg', monthly:19, desc:'Фото: images/garment-steamer-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'},
+  {id:23, tj:'Гриль ва шашлычница', ru:'Гриль и шашлычница', cat:'grills', price:480, old:590, badge:'sale', bTJ:'Скидка', bRU:'Скидка', img:'images/grill-1.jpg', monthly:27, desc:'Фото: images/grill-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'},
+  {id:24, tj:'Миксер', ru:'Миксер', cat:'mixers', price:190, old:260, badge:'hot', bTJ:'Акция', bRU:'Акция', img:'images/mixer-1.jpg', monthly:11, desc:'Фото: images/mixer-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'},
+  {id:25, tj:'Электрочайник ва термопот', ru:'Электрочайник и термопот', cat:'kettles', price:180, old:250, badge:'hot', bTJ:'Акция', bRU:'Акция', img:'images/kettle-1.jpg', monthly:10, desc:'Фото: images/kettle-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'},
+  {id:26, tj:'Соковыжималка', ru:'Соковыжималка', cat:'juicers', price:320, old:390, badge:'new', bTJ:'Нав', bRU:'Новинка', img:'images/juicer-1.jpg', monthly:18, desc:'Фото: images/juicer-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'},
+  {id:27, tj:'Кофеварка / кофемашина', ru:'Кофеварка / кофемашина', cat:'coffee', price:980, old:1150, badge:'sale', bTJ:'Скидка', bRU:'Скидка', img:'images/coffee-maker-1.jpg', monthly:54, desc:'Фото: images/coffee-maker-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'},
+  {id:28, tj:'Тостер', ru:'Тостер', cat:'toasters', price:220, old:280, badge:'hot', bTJ:'Акция', bRU:'Акция', img:'images/toaster-1.jpg', monthly:12, desc:'Фото: images/toaster-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'},
+  {id:29, tj:'Вентилятор', ru:'Вентилятор', cat:'fans', price:260, old:330, badge:'new', bTJ:'Нав', bRU:'Новинка', img:'images/fan-1.jpg', monthly:14, desc:'Фото: images/fan-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'},
+  {id:30, tj:'Очиститель ва увлажнитель воздуха', ru:'Очиститель и увлажнитель воздуха', cat:'air_cleaners', price:540, old:650, badge:'new', bTJ:'Нав', bRU:'Новинка', img:'images/air-cleaner-1.jpg', monthly:30, desc:'Фото: images/air-cleaner-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'},
+  {id:31, tj:'Сендвичница ва прибор для выпечки', ru:'Сендвичница и прибор для выпечки', cat:'sandwich', price:210, old:270, badge:'hot', bTJ:'Акция', bRU:'Акция', img:'images/sandwich-maker-1.jpg', monthly:12, desc:'Фото: images/sandwich-maker-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'},
+  {id:32, tj:'Кофемолка', ru:'Кофемолка', cat:'coffee_grinders', price:160, old:220, badge:'sale', bTJ:'Скидка', bRU:'Скидка', img:'images/coffee-grinder-1.jpg', monthly:9, desc:'Фото: images/coffee-grinder-1.jpg. Инҷо маълумоти маҳсулотро худат менависӣ.'}
+];
+
+let lang = 'ru';
 let cart = [];
 let slide = 0;
 
-setTimeout(() => document.getElementById('splash').classList.add('hide'), 2800);
+const splash = document.getElementById('splash');
+if (splash) setTimeout(() => splash.classList.add('hide'), 1200);
+
+function somoni(n) { return Number(n || 0).toLocaleString() + ' с.'; }
+
+function renderCategories() {
+  const grid = document.getElementById('categoryGrid');
+  if (!grid) return;
+  grid.innerHTML = CATEGORIES.map(c => `
+    <div class="cat-circle" onclick="showCat('${c.id}')">
+      <div class="cat-img">${c.sticker || '📦'}</div>
+      <h3 class="cat-title">${c.name}</h3>
+      <span class="cat-arrow">›</span>
+    </div>
+  `).join('');
+}
+
+function scrollCategoriesRight() {
+  const grid = document.getElementById('categoryGrid');
+  if (grid) grid.scrollBy({ left: 560, behavior: 'smooth' });
+}
+
+function renderCatalogMenu() {
+  const menu = document.getElementById('catalogMenu');
+  if (!menu) return;
+  menu.innerHTML = `
+    <button class="catalog-menu-item" onclick="filterProdsAll('sale')">
+      <span class="cm-text">Скидки</span><span class="cm-arrow">›</span>
+    </button>
+    <button class="catalog-menu-item" onclick="filterProdsAll('new')">
+      <span class="cm-text">Новинки</span><span class="cm-arrow">›</span>
+    </button>
+    <div class="catalog-menu-divider"></div>
+    ${CATEGORIES.map(c => `
+      <button class="catalog-menu-item" onclick="showCat('${c.id}')">
+        <span class="cm-text">${c.name}</span><span class="cm-arrow">›</span>
+      </button>`).join('')}
+  `;
+}
+
+function renderMobileCategories() {
+  const list = document.getElementById('mobileCatList');
+  if (!list) return;
+  list.innerHTML = `
+    <li><a onclick="showHome();closeMobileNav()"><span>${lang === 'ru' ? 'Главная' : 'Асосӣ'}</span></a></li>
+    ${CATEGORIES.map(c => `<li><a onclick="showCat('${c.id}');closeMobileNav()"><span>${c.name}</span></a></li>`).join('')}
+    <li><a href="#footer" onclick="closeMobileNav()"><span>${lang === 'ru' ? 'Контакты' : 'Тамос'}</span></a></li>
+  `;
+}
+
+function renderFooterCategories() {
+  const list = document.getElementById('footerCatList');
+  if (!list) return;
+  list.innerHTML = CATEGORIES.slice(0, 8).map(c => `<li><a onclick="showCat('${c.id}')"><span>${c.name}</span></a></li>`).join('');
+}
 
 function setLang(l) {
-    lang = l;
-    document.getElementById('btnTJ').classList.toggle('active', l === 'tj');
-    document.getElementById('btnRU').classList.toggle('active', l === 'ru');
-    document.querySelectorAll('.t').forEach(el => {
-        const val = el.getAttribute('data-' + l);
-        if (val !== null) el.innerHTML = val;
-    });
-    document.getElementById('splashMsg').textContent =
-        l === 'tj' ? 'Хуш омадед ба Texmir.tj! 🎉' : 'Добро пожаловать в Texmir.tj! 🎉';
-    document.querySelectorAll('[data-ph-tj]').forEach(el => {
-        el.placeholder = el.getAttribute('data-ph-' + l);
-    });
-    renderMain();
-    renderNew();
-    renderPopular();
-    renderCart();
+  lang = l;
+  document.getElementById('btnTJ')?.classList.toggle('active', l === 'tj');
+  document.getElementById('btnRU')?.classList.toggle('active', l === 'ru');
+  document.querySelectorAll('.t').forEach(el => {
+    const val = el.getAttribute('data-' + l);
+    if (val !== null) el.innerHTML = val;
+  });
+  const splashMsg = document.getElementById('splashMsg');
+  if (splashMsg) splashMsg.textContent = l === 'tj' ? 'Хуш омадед ба Texmir.tj!' : 'Добро пожаловать в Texmir.tj!';
+  document.querySelectorAll('[data-ph-tj]').forEach(el => el.placeholder = el.getAttribute('data-ph-' + l));
+  renderCategories(); renderCatalogMenu(); renderMobileCategories(); renderFooterCategories(); renderMain(); renderNew(); renderPopular(); renderCart();
 }
 
 function card(p) {
-    const name = lang === 'tj' ? p.tj : p.ru;
-    const bClass = p.badge === 'sale' ? 'b-sale' : p.badge === 'new' ? 'b-new' : p.badge === 'hot' ? 'b-hot' : '';
-    const bTxt = lang === 'tj' ? p.bTJ : p.bRU;
-    const addTxt = lang === 'tj' ? 'Ба сабад' : 'В корзину';
-    const monthTxt = lang === 'tj' ? 'моҳона' : 'в мес';
-
-    return `
-    <div class="prod-card" data-cat="${p.cat}">
-        ${p.badge ? `<span class="prod-badge ${bClass}">${bTxt}</span>` : ''}
-        <button class="prod-wish" onclick="this.classList.toggle('liked')">♥</button>
-        <div class="prod-img"><img src="${p.img}" alt="${name}" loading="lazy"></div>
-        <div class="prod-info">
-            <div class="prod-price-row">
-                <span class="cur-price">${p.price.toLocaleString()} с.</span>
-                ${p.old ? `<span class="old-price">${p.old.toLocaleString()} с.</span>` : ''}
-            </div>
-            <h3>${name}</h3>
-            <div class="prod-monthly">💳 <strong>${p.monthly} с.</strong> ${monthTxt}</div>
-            <div class="prod-acts">
-                <button class="btn-cart" onclick="addCart(${p.id})">🛒 ${addTxt}</button>
-                <button class="btn-qv" onclick="quickWA(${p.id})">💬</button>
-            </div>
-        </div>
-    </div>`;
+  const name = lang === 'tj' ? p.tj : p.ru;
+  const bClass = p.badge === 'sale' ? 'b-sale' : p.badge === 'new' ? 'b-new' : p.badge === 'hot' ? 'b-hot' : '';
+  const bTxt = lang === 'tj' ? p.bTJ : p.bRU;
+  const addTxt = lang === 'tj' ? 'Ба сабад' : 'В корзину';
+  const monthTxt = lang === 'tj' ? 'моҳона' : 'в мес';
+  return `
+  <div class="prod-card" data-cat="${p.cat}">
+    ${p.badge ? `<span class="prod-badge ${bClass}">${bTxt}</span>` : ''}
+    <button class="prod-wish" onclick="event.stopPropagation();this.classList.toggle('liked')">♥</button>
+    <div class="prod-img" onclick="openImage('${p.img}', '${name.replace(/'/g, '&#39;')}')" title="Калон дидан">
+      <img src="${p.img}" alt="${name}" loading="lazy" onerror="this.src='https://via.placeholder.com/500x500?text=Texmir.tj+Photo';">
+    </div>
+    <div class="prod-info">
+      <div class="prod-price-row"><span class="cur-price">${p.price ? somoni(p.price) : 'Нархро мон'}</span>${p.old ? `<span class="old-price">${somoni(p.old)}</span>` : ''}</div>
+      <h3>${name}</h3>
+      <p style="font-size:.78rem;color:#666;line-height:1.35;margin-bottom:8px;min-height:38px;">${p.desc}</p>
+      ${p.monthly ? `<div class="prod-monthly">💳 <strong>${p.monthly} с.</strong> ${monthTxt}</div>` : `<div class="prod-monthly">💳 Моҳонаро баъд мон</div>`}
+      <div class="prod-acts">
+        <button class="btn-cart" onclick="addCart(${p.id})">🛒 ${addTxt}</button>
+        <button class="btn-qv" onclick="quickWA(${p.id})">💬</button>
+      </div>
+    </div>
+  </div>`;
 }
 
-function renderMain() {
-    const list = PRODUCTS.filter(p => p.badge === 'sale').slice(0, 10);
-    document.getElementById('mainGrid').innerHTML = list.map(card).join('');
-}
-
-function renderNew() {
-    const list = PRODUCTS.filter(p => p.badge === 'new').slice(0, 10);
-    document.getElementById('newGrid').innerHTML = list.map(card).join('');
-}
-
-function renderPopular() {
-    const list = PRODUCTS.filter(p => p.badge === 'hot').slice(0, 10);
-    document.getElementById('popularGrid').innerHTML = list.map(card).join('');
-}
+function renderMain() { document.getElementById('mainGrid').innerHTML = PRODUCTS.filter(p => p.badge === 'sale').slice(0, 10).map(card).join(''); }
+function renderNew() { document.getElementById('newGrid').innerHTML = PRODUCTS.filter(p => p.badge === 'new').slice(0, 10).map(card).join(''); }
+function renderPopular() { document.getElementById('popularGrid').innerHTML = PRODUCTS.filter(p => p.badge === 'hot').slice(0, 10).map(card).join(''); }
 
 function filterProdsAll(badge) {
-    closeCatalog();
-    document.getElementById('mainContent').style.display = 'none';
-    const pg = document.getElementById('cat-page');
-    pg.classList.add('show');
-    const titles = {
-        sale: {tj:'🔥 Ҳамаи тахфифҳо', ru:'🔥 Все скидки'},
-        new: {tj:'⭐ Ҳамаи навтарин', ru:'⭐ Все новинки'}
-    };
-    document.getElementById('catPageTitle').textContent = titles[badge][lang];
-    const list = PRODUCTS.filter(p => p.badge === badge);
-    document.getElementById('catGrid').innerHTML = list.map(card).join('');
-    window.scrollTo({top: 0, behavior: 'smooth'});
+  closeCatalog();
+  document.getElementById('mainContent').style.display = 'none';
+  document.getElementById('cat-page').classList.add('show');
+  document.getElementById('catPageTitle').textContent = badge === 'sale' ? '🔥 Скидки' : '⭐ Новинки';
+  const list = PRODUCTS.filter(p => p.badge === badge);
+  document.getElementById('catGrid').innerHTML = list.length ? list.map(card).join('') : emptyText();
+  window.scrollTo({top:0, behavior:'smooth'});
 }
 
 function doSearch(q) {
-    const grid = document.getElementById('mainGrid');
-    if (!q.trim()) { renderMain(); return; }
-    const lq = q.toLowerCase();
-    const found = PRODUCTS.filter(p =>
-        p.tj.toLowerCase().includes(lq) || p.ru.toLowerCase().includes(lq)
-    );
-    grid.innerHTML = found.length
-        ? found.map(card).join('')
-        : `<p style="grid-column:1/-1;text-align:center;padding:40px;color:#aaa;font-size:1.1rem;">${lang==='tj'?'Маҳсулот ёфт нашуд 😔':'Товары не найдены 😔'}</p>`;
-    document.getElementById('products').scrollIntoView({behavior:'smooth'});
+  const grid = document.getElementById('mainGrid');
+  if (!q.trim()) { renderMain(); return; }
+  const lq = q.toLowerCase();
+  const found = PRODUCTS.filter(p => p.tj.toLowerCase().includes(lq) || p.ru.toLowerCase().includes(lq) || p.desc.toLowerCase().includes(lq));
+  grid.innerHTML = found.length ? found.map(card).join('') : `<p style="grid-column:1/-1;text-align:center;padding:40px;color:#aaa;font-size:1.1rem;">Маҳсулот ёфт нашуд</p>`;
+  document.getElementById('products').scrollIntoView({behavior:'smooth'});
 }
-
-const CAT_NAMES = {
-    kitchen: {tj:'🍳 Маҳсулоти Ошхона', ru:'🍳 Кухонная техника'},
-    laundry: {tj:'👕 Ҷомашӯӣ ва Утюг', ru:'👕 Стирка и Глажка'},
-    climate: {tj:'❄️ Техникаи иқлим', ru:'❄️ Климатическая техника'},
-    cleaning: {tj:'🧹 Тозакунӣ', ru:'🧹 Техника для уборки'},
-    beauty: {tj:'💇 Зебоӣ ва Саломатӣ', ru:'💇 Красота и Здоровье'},
-    tv: {tj:'📺 ТВ ва Аудио', ru:'📺 ТВ и Аудио'},
-};
 
 function showCat(cat) {
-    closeCatalog();
-    closeMobileNav();
-    document.getElementById('mainContent').style.display = 'none';
-    const pg = document.getElementById('cat-page');
-    pg.classList.add('show');
-    document.getElementById('catPageTitle').textContent = CAT_NAMES[cat][lang];
-    const list = PRODUCTS.filter(p => p.cat === cat);
-    document.getElementById('catGrid').innerHTML = list.map(card).join('');
-    window.scrollTo({top: 0, behavior: 'smooth'});
+  closeCatalog(); closeMobileNav();
+  document.getElementById('mainContent').style.display = 'none';
+  document.getElementById('cat-page').classList.add('show');
+  document.getElementById('catPageTitle').textContent = CAT_NAMES[cat]?.[lang] || cat;
+  const list = PRODUCTS.filter(p => p.cat === cat);
+  document.getElementById('catGrid').innerHTML = list.length ? list.map(card).join('') : emptyText();
+  window.scrollTo({top:0, behavior:'smooth'});
 }
 
-function showHome() {
-    closeCatalog();
-    document.getElementById('mainContent').style.display = 'block';
-    document.getElementById('cat-page').classList.remove('show');
-    window.scrollTo({top: 0, behavior: 'smooth'});
+function emptyText(){ return `<p style="grid-column:1/-1;text-align:center;padding:45px;color:#888;font-size:1.05rem;">Дар ин категория ҳоло маҳсулот нест. Маҳсулотро ба PRODUCTS илова кун.</p>`; }
+function showHome(){ closeCatalog(); document.getElementById('mainContent').style.display='block'; document.getElementById('cat-page').classList.remove('show'); window.scrollTo({top:0,behavior:'smooth'}); }
+function scrollToBrands(){ closeCatalog(); showHome(); setTimeout(()=>document.getElementById('brandsSection')?.scrollIntoView({behavior:'smooth'}),100); }
+function toggleCatalog(){ document.getElementById('catalogMenu').classList.toggle('show'); document.getElementById('catalogOverlay').classList.toggle('show'); }
+function closeCatalog(){ document.getElementById('catalogMenu').classList.remove('show'); document.getElementById('catalogOverlay').classList.remove('show'); }
+
+function openImage(src, title='') {
+  document.getElementById('bigImg').src = src;
+  document.getElementById('bigImgTitle').textContent = title;
+  document.getElementById('imgModal').style.display = 'flex';
 }
+function closeImage() { document.getElementById('imgModal').style.display = 'none'; }
 
-function scrollToBrands() {
-    closeCatalog();
-    showHome();
-    setTimeout(() => document.getElementById('brandsSection').scrollIntoView({behavior:'smooth'}), 100);
+function addCart(id){ const p=PRODUCTS.find(x=>x.id===id); const ex=cart.find(x=>x.id===id); if(ex) ex.qty++; else cart.push({...p,qty:1}); updateCartCount(); renderCart(); toast(lang === 'ru' ? 'Добавлено в корзину!' : 'Ба сабад илова шуд!'); }
+function removeCart(id){ cart=cart.filter(x=>x.id!==id); updateCartCount(); renderCart(); }
+function changeQty(id,d){ const item=cart.find(x=>x.id===id); if(!item)return; item.qty+=d; if(item.qty<=0){removeCart(id);return;} updateCartCount(); renderCart(); }
+function updateCartCount(){ document.getElementById('cartCount').textContent=cart.reduce((s,c)=>s+c.qty,0); }
+function renderCart(){
+  const body=document.getElementById('cartBody'), foot=document.getElementById('cartFoot');
+  document.getElementById('cartTitle').textContent = lang === 'ru' ? 'Корзина' : 'Сабад'; document.getElementById('totalLbl').textContent = lang === 'ru' ? 'Итого:' : 'Ҳамагӣ:'; document.getElementById('orderBtn').textContent = lang === 'ru' ? 'Заказать через WhatsApp' : 'Фармоиш тавассути WhatsApp';
+  if(!cart.length){ body.innerHTML = `<div class="cart-empty"><div class="eico">🛒</div><p>${lang === 'ru' ? 'Корзина пуста' : 'Сабад холӣ аст'}</p></div>`; foot.style.display='none'; return; }
+  foot.style.display='block'; let total=0;
+  body.innerHTML=cart.map(item=>{ total+=item.price*item.qty; return `<div class="cart-item-row"><div class="ci-img"><img src="${item.img}" alt="" onerror="this.src='https://via.placeholder.com/120?text=Photo';"></div><div class="ci-info"><h4>${item.tj}</h4><div class="cp">${somoni(item.price*item.qty)}</div><div class="ci-qty"><button onclick="changeQty(${item.id},-1)">−</button><span>${item.qty}</span><button onclick="changeQty(${item.id},1)">+</button></div></div><button class="ci-remove" onclick="removeCart(${item.id})">✕</button></div>`; }).join('');
+  document.getElementById('cartTotalAmt').textContent=total.toLocaleString()+' сом.';
 }
-
-/* CATALOG DROPDOWN */
-function toggleCatalog() {
-    document.getElementById('catalogMenu').classList.toggle('show');
-    document.getElementById('catalogOverlay').classList.toggle('show');
+function toggleCart(){ document.getElementById('cartDrawer').classList.toggle('show'); document.getElementById('cartOverlay').classList.toggle('show'); }
+function checkout(){
+  if(!cart.length) return;
+  let msg = '🛒 Фармоиш аз Texmir.tj:\n\n';
+  let total = 0;
+  cart.forEach(item => {
+    msg += `• ${item.tj} x${item.qty} = ${(item.price * item.qty).toLocaleString()} сом.\n`;
+    total += item.price * item.qty;
+  });
+  msg += `\nҲамагӣ: ${total.toLocaleString()} сом.`;
+  window.open('https://wa.me/992119002301?text=' + encodeURIComponent(msg), '_blank');
 }
-function closeCatalog() {
-    document.getElementById('catalogMenu').classList.remove('show');
-    document.getElementById('catalogOverlay').classList.remove('show');
-}
+function quickWA(id){ const p=PRODUCTS.find(x=>x.id===id); const msg=`Салом! Ман дар бораи "${p.tj}" маълумот мехоҳам. Нарх: ${p.price.toLocaleString()} сом. ${p.desc}`; window.open('https://wa.me/992119002301?text='+encodeURIComponent(msg),'_blank'); }
+function openMobileNav(){ document.getElementById('mobileNav').classList.add('show'); document.getElementById('mobileOverlay').classList.add('show'); }
+function closeMobileNav(){ document.getElementById('mobileNav').classList.remove('show'); document.getElementById('mobileOverlay').classList.remove('show'); }
+function goSlide(n){ document.querySelectorAll('.hero-slide').forEach((s,i)=>s.classList.toggle('on',i===n)); document.querySelectorAll('.hero-dot').forEach((d,i)=>d.classList.toggle('on',i===n)); slide=n; }
+setInterval(()=>goSlide((slide+1)%3),5000);
+(function(){ const end=new Date(Date.now()+15*24*60*60*1000); function tick(){ const diff=end-Date.now(); if(diff<=0)return; const d=Math.floor(diff/86400000), h=Math.floor((diff%86400000)/3600000), m=Math.floor((diff%3600000)/60000), s=Math.floor((diff%60000)/1000); ['tDay','tHr','tMin','tSec'].forEach((id,i)=>{ const vals=[d,h,m,s]; const el=document.getElementById(id); if(el)el.textContent=String(vals[i]).padStart(2,'0');}); } tick(); setInterval(tick,1000); })();
+window.addEventListener('scroll',()=>document.getElementById('scrollTop').classList.toggle('vis',window.scrollY>400));
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2500); }
 
-function addCart(id) {
-    const p = PRODUCTS.find(x => x.id === id);
-    const ex = cart.find(x => x.id === id);
-    if (ex) ex.qty++;
-    else cart.push({...p, qty: 1});
-    updateCartCount();
-    renderCart();
-    toast(lang === 'tj' ? '✅ Ба сабад илова шуд!' : '✅ Добавлено в корзину!');
-}
-
-function removeCart(id) {
-    cart = cart.filter(x => x.id !== id);
-    updateCartCount();
-    renderCart();
-}
-
-function changeQty(id, d) {
-    const item = cart.find(x => x.id === id);
-    if (!item) return;
-    item.qty += d;
-    if (item.qty <= 0) { removeCart(id); return; }
-    updateCartCount();
-    renderCart();
-}
-
-function updateCartCount() {
-    document.getElementById('cartCount').textContent = cart.reduce((s, c) => s + c.qty, 0);
-}
-
-function renderCart() {
-    const body = document.getElementById('cartBody');
-    const foot = document.getElementById('cartFoot');
-    document.getElementById('cartTitle').textContent = lang === 'tj' ? '🛒 Сабад' : '🛒 Корзина';
-    document.getElementById('totalLbl').textContent = lang === 'tj' ? 'Ҳамагӣ:' : 'Итого:';
-    document.getElementById('orderBtn').textContent = lang === 'tj' ? '📱 Фармоиш тавассути WhatsApp' : '📱 Заказать через WhatsApp';
-
-    if (!cart.length) {
-        body.innerHTML = `<div class="cart-empty"><div class="eico">🛒</div><p>${lang==='tj'?'Сабад холӣ аст':'Корзина пуста'}</p></div>`;
-        foot.style.display = 'none';
-        return;
-    }
-    foot.style.display = 'block';
-    let total = 0;
-    body.innerHTML = cart.map(item => {
-        const name = lang === 'tj' ? item.tj : item.ru;
-        total += item.price * item.qty;
-        return `
-        <div class="cart-item-row">
-            <div class="ci-img"><img src="${item.img}" alt=""></div>
-            <div class="ci-info">
-                <h4>${name}</h4>
-                <div class="cp">${(item.price * item.qty).toLocaleString()} сом.</div>
-                <div class="ci-qty">
-                    <button onclick="changeQty(${item.id},-1)">−</button>
-                    <span>${item.qty}</span>
-                    <button onclick="changeQty(${item.id},1)">+</button>
-                </div>
-            </div>
-            <button class="ci-remove" onclick="removeCart(${item.id})">✕</button>
-        </div>`;
-    }).join('');
-    document.getElementById('cartTotalAmt').textContent = total.toLocaleString() + ' сом.';
-}
-
-function toggleCart() {
-    document.getElementById('cartDrawer').classList.toggle('show');
-    document.getElementById('cartOverlay').classList.toggle('show');
-}
-
-function checkout() {
-    if (!cart.length) return;
-    let msg = lang === 'tj' ? '🛒 Фармоиш аз Texmir.tj:\n\n' : '🛒 Заказ с Texmir.tj:\n\n';
-    let total = 0;
-    cart.forEach(item => {
-        const name = lang === 'tj' ? item.tj : item.ru;
-        msg += `• ${name} x${item.qty} = ${(item.price * item.qty).toLocaleString()} сом.\n`;
-        total += item.price * item.qty;
-    });
-    msg += `\n${lang==='tj'?'Ҳамагӣ':'Итого'}: ${total.toLocaleString()} сом.`;
-    window.open('https://wa.me/992119002301?text=' + encodeURIComponent(msg), '_blank');
-}
-
-function quickWA(id) {
-    const p = PRODUCTS.find(x => x.id === id);
-    const name = lang === 'tj' ? p.tj : p.ru;
-    const msg = lang === 'tj'
-        ? `Салом! Ман дар бораи "${name}" маълумот мехоҳам. Нарх: ${p.price.toLocaleString()} сом.`
-        : `Здравствуйте! Хочу узнать о "${name}". Цена: ${p.price.toLocaleString()} сом.`;
-    window.open('https://wa.me/992119002301?text=' + encodeURIComponent(msg), '_blank');
-}
-
-function openMobileNav() {
-    document.getElementById('mobileNav').classList.add('show');
-    document.getElementById('mobileOverlay').classList.add('show');
-}
-function closeMobileNav() {
-    document.getElementById('mobileNav').classList.remove('show');
-    document.getElementById('mobileOverlay').classList.remove('show');
-}
-
-function goSlide(n) {
-    document.querySelectorAll('.hero-slide').forEach((s, i) => s.classList.toggle('on', i === n));
-    document.querySelectorAll('.hero-dot').forEach((d, i) => d.classList.toggle('on', i === n));
-    slide = n;
-}
-setInterval(() => goSlide((slide + 1) % 3), 5000);
-
-(function() {
-    const end = new Date(Date.now() + 15 * 24 * 60 * 60 * 1000);
-    function tick() {
-        const diff = end - Date.now();
-        if (diff <= 0) return;
-        const d = Math.floor(diff / 86400000);
-        const h = Math.floor((diff % 86400000) / 3600000);
-        const m = Math.floor((diff % 3600000) / 60000);
-        const s = Math.floor((diff % 60000) / 1000);
-        document.getElementById('tDay').textContent = String(d).padStart(2,'0');
-        document.getElementById('tHr').textContent = String(h).padStart(2,'0');
-        document.getElementById('tMin').textContent = String(m).padStart(2,'0');
-        document.getElementById('tSec').textContent = String(s).padStart(2,'0');
-    }
-    tick();
-    setInterval(tick, 1000);
-})();
-
-window.addEventListener('scroll', () => {
-    document.getElementById('scrollTop').classList.toggle('vis', window.scrollY > 400);
-});
-
-function toast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2500);
-}
-
-renderMain();
-renderNew();
-renderPopular();
+setLang('ru');
 </script>
+<!-- IMAGE MODAL -->
+<div id="imgModal" onclick="closeImage()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:999999;align-items:center;justify-content:center;flex-direction:column;padding:20px;">
+  <button onclick="closeImage()" style="position:absolute;top:20px;right:25px;background:white;border:none;border-radius:50%;width:42px;height:42px;font-size:24px;cursor:pointer;">×</button>
+  <img id="bigImg" src="" style="max-width:92%;max-height:82%;border-radius:16px;background:white;object-fit:contain;">
+  <div id="bigImgTitle" style="color:white;font-size:18px;font-weight:700;margin-top:14px;text-align:center;"></div>
+</div>
+
 </body>
 </html>
